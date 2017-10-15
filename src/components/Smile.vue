@@ -6,16 +6,27 @@
     <div class="ui">
       <button v-if="!loading" v-on:click="checkIfSmiling">Smiling?</button>
       <span v-if="loading">loading...</span>
+      <span v-if="isSmiling !== null">{{ isSmiling }}</span>
+    </div>
+    <form method="post" enctype="multipart/form-data" action="http://localhost:3000/face-attributes">
+      <input type="file" name="file">
+      <input type="submit" value="Submit">
+    </form>
+    <div>
+      <canvas ref="canvas"></canvas>
     </div>
   </div>
 </template>
 
 <script>
+import isSmiling from 'services/face-detection';
+
 export default {
   name: 'Smile',
   data() {
     return {
       loading: false,
+      isSmiling: null,
     };
   },
   mounted() {
@@ -45,12 +56,19 @@ export default {
     onWebcamError(e) {
       this.$log.error('sorry', e);
     },
-    checkIfSmiling() {
+    async checkIfSmiling() {
       this.$log.info('checking if smiling');
       this.loading = true;
+      this.isSmiling = null;
 
-      setTimeout(() => { this.loading = false; }, 1000);
+      if (this.$refs.canvas.toBlob) {
+        this.$refs.canvas.toBlob(async (blob) => {
+          this.isSmiling = await isSmiling(blob);
+          this.loading = false;
+        }, 'image/png');
+      }
     },
+
   },
 };
 </script>

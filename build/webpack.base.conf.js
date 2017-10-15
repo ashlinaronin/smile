@@ -10,7 +10,10 @@ function resolve (dir) {
 
 module.exports = {
   entry: {
-    app: './src/main.js'
+    app: [
+      'blueimp-canvas-to-blob',
+      './src/main.js',
+      ]
   },
   output: {
     path: config.build.assetsRoot,
@@ -24,6 +27,8 @@ module.exports = {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
+      'services': resolve('src/services'),
+      'components': resolve('src/components'),
     }
   },
   module: {
