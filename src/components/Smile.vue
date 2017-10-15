@@ -5,8 +5,8 @@
     </div>
     <div class="ui">
       <div class="ui__button">
-        <button v-if="!processing" v-on:click="checkIfSmiling">Smiling?</button>
-        <span v-if="processing">processing...</span>
+        <button v-if="!processing" v-on:click="checkIfSmiling">am I smiling?</button>
+        <span v-if="processing">analyzing facial features...</span>
       </div>
       <div class="ui__feedback">
         <span class="ui__feedback--success" v-if="!processing && !error">{{ smilingText }}</span>
@@ -34,7 +34,7 @@ export default {
   },
   computed: {
     smilingText() {
-      return this.isSmiling ? 'You are smiling.' : 'You are not smiling';
+      return this.isSmiling ? 'you are smiling 😃.' : 'you are not smiling 😢.';
     },
   },
   mounted() {
@@ -105,6 +105,7 @@ export default {
 
 
       &__feedback {
+        margin-top: 50px;
 
         &--success {
 
@@ -125,6 +126,8 @@ export default {
       border: 1px solid black;
       background: transparent;
       padding: 20px;
+
+
       &:hover, &:focus {
         background: grey;
         color: white;
