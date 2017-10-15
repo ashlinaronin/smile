@@ -5,7 +5,7 @@
     </div>
     <div class="ui">
       <div class="ui__button">
-        <button v-if="!processing" v-on:click="checkIfSmiling">am I smiling?</button>
+        <button v-if="!processing" v-on:click="checkIfSmiling" v-focus="true">am I smiling?</button>
         <span v-if="processing">analyzing facial features...</span>
       </div>
       <div class="ui__feedback">
@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import VueFocus from 'vue-focus';
 import isSmiling from 'services/face-detection';
 
 export default {
@@ -32,6 +33,7 @@ export default {
       context: null,
     };
   },
+  mixins: [VueFocus.mixin],
   computed: {
     smilingText() {
       return this.isSmiling ? 'you are smiling 😃.' : 'you are not smiling 😢.';
