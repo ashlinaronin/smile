@@ -4,15 +4,16 @@
       <video ref="video"></video>
     </div>
     <div class="ui">
-      <button v-if="!loading" v-on:click="checkIfSmiling">Smiling?</button>
-      <span v-if="loading">loading...</span>
-      <span v-if="isSmiling !== null">{{ isSmiling }}</span>
+      <div class="ui__button">
+        <button v-if="!processing" v-on:click="checkIfSmiling">Smiling?</button>
+        <span v-if="processing">processing...</span>
+      </div>
+      <div class="ui__feedback">
+        <span class="ui__feedback--success" v-if="!processing && !error">{{ smilingText }}</span>
+        <span class="ui__feedback--error" v-if="!processing && error">Error: {{ error }}</span>
+      </div>
     </div>
-    <form method="post" enctype="multipart/form-data" action="http://localhost:3000/face-attributes">
-      <input type="file" name="file">
-      <input type="submit" value="Submit">
-    </form>
-    <div>
+    <div class="canvas">
       <canvas ref="canvas"></canvas>
     </div>
   </div>
@@ -25,12 +26,20 @@ export default {
   name: 'Smile',
   data() {
     return {
-      loading: false,
+      processing: false,
+      error: null,
       isSmiling: null,
+      context: null,
     };
+  },
+  computed: {
+    smilingText() {
+      return this.isSmiling ? 'You are smiling.' : 'You are not smiling';
+    },
   },
   mounted() {
     this.initializeWebcam();
+    this.context = this.$refs.canvas.getContext('2d');
   },
   methods: {
     initializeWebcam() {
@@ -52,23 +61,36 @@ export default {
     },
     onLoadedMetadata() {
       this.$refs.video.play();
+      this.$refs.canvas.width = this.$refs.video.videoWidth;
+      this.$refs.canvas.height = this.$refs.video.videoHeight;
     },
     onWebcamError(e) {
       this.$log.error('sorry', e);
     },
     async checkIfSmiling() {
       this.$log.info('checking if smiling');
-      this.loading = true;
+      this.error = null;
+      this.processing = true;
       this.isSmiling = null;
+
+      this.$refs.video.pause();
+      this.saveVideoFrameToCanvas();
 
       if (this.$refs.canvas.toBlob) {
         this.$refs.canvas.toBlob(async (blob) => {
-          this.isSmiling = await isSmiling(blob);
-          this.loading = false;
+          const smilingResults = await isSmiling(blob);
+          this.error = smilingResults.error;
+          this.isSmiling = smilingResults.smiling;
+          this.processing = false;
+          this.$refs.video.play();
         }, 'image/png');
       }
     },
-
+    saveVideoFrameToCanvas() {
+      if (this.$refs.video.readyState === this.$refs.video.HAVE_ENOUGH_DATA) {
+        this.context.drawImage(this.$refs.video, 0, 0);
+      }
+    },
   },
 };
 </script>
@@ -79,6 +101,22 @@ export default {
 
     .ui {
       margin-top: 100px;
+
+
+      &__feedback {
+
+        &--success {
+
+        }
+
+        &--error {
+          color: red;
+        }
+      }
+    }
+
+    .canvas {
+      display: none;
     }
 
     button {
