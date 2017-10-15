@@ -21,12 +21,6 @@ async function postPhoto(imageBlob) {
   return jsonResponse;
 }
 
-/*
- * isSmiling - Given an imageBlob, return whether or not the face within it is smiling.
- * If no face is detected, returns null.
- * @param {Blob} imageBlob
- * @returns {Promise.<Boolean>}
- */
 export default async function isSmiling(imageBlob) {
   const result = {
     smiling: null,
