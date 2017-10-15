@@ -40,6 +40,9 @@ export default {
   mounted() {
     this.initializeWebcam();
     this.context = this.$refs.canvas.getContext('2d');
+    if (!this.$refs.canvas.toBlob) {
+      this.error('Your browser does not support smile detection');
+    }
   },
   methods: {
     initializeWebcam() {
@@ -66,25 +69,23 @@ export default {
     },
     onWebcamError(e) {
       this.$log.error('sorry', e);
+      this.error = 'Error starting up your webcam';
     },
     async checkIfSmiling() {
-      this.$log.info('checking if smiling');
       this.error = null;
-      this.processing = true;
       this.isSmiling = null;
+      this.processing = true;
 
       this.$refs.video.pause();
       this.saveVideoFrameToCanvas();
-
-      if (this.$refs.canvas.toBlob) {
-        this.$refs.canvas.toBlob(async (blob) => {
-          const smilingResults = await isSmiling(blob);
-          this.error = smilingResults.error;
-          this.isSmiling = smilingResults.smiling;
-          this.processing = false;
-          this.$refs.video.play();
-        }, 'image/png');
-      }
+      this.$refs.canvas.toBlob(this.canvasBlobCallback, 'image/png');
+    },
+    async canvasBlobCallback(blob) {
+      const smilingResults = await isSmiling(blob);
+      this.error = smilingResults.error;
+      this.isSmiling = smilingResults.smiling;
+      this.processing = false;
+      this.$refs.video.play();
     },
     saveVideoFrameToCanvas() {
       if (this.$refs.video.readyState === this.$refs.video.HAVE_ENOUGH_DATA) {

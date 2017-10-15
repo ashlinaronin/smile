@@ -45,7 +45,7 @@ export default async function isSmiling(imageBlob) {
     const firstFace = firstPhoto.tags[0];
     const smilingAttr = firstFace.attributes.smiling;
 
-    if (!smilingAttr.hasOwnProperty('value')) {
+    if (!smilingAttr.value) {
       result.error = 'Smiling could not be determined';
       return result;
     }
