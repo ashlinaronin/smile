@@ -1,5 +1,9 @@
-import skyBiometryIsSmiling from 'services/sky-biometry';
+import { skyBioIsSmiling, skyBioGetEmotions } from 'services/sky-biometry';
 
-export default async function isSmiling(imageUrl) {
-  return skyBiometryIsSmiling(imageUrl);
+export async function isSmiling(imageUrl) {
+  return skyBioIsSmiling(imageUrl);
+}
+
+export async function getEmotions(imageUrl) {
+  return skyBioGetEmotions(imageUrl);
 }

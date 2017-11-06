@@ -21,7 +21,33 @@ async function postPhoto(imageBlob) {
   return jsonResponse;
 }
 
-export default async function isSmiling(imageBlob) {
+export async function skyBioGetEmotions(imageBlob) {
+  const result = {
+    attributes: {},
+    error: null,
+  };
+
+  try {
+    const jsonResponse = await postPhoto(imageBlob);
+    const firstPhoto = jsonResponse.photos[0];
+
+    if (firstPhoto.tags.length === 0) {
+      result.error = 'No faces found';
+      return result;
+    }
+
+    const firstFace = firstPhoto.tags[0];
+    result.attributes = firstFace.attributes;
+
+    return result;
+  } catch (err) {
+    Vue.$log.error('Sky Biometry:', err);
+    result.error = 'Error processing face';
+    return result;
+  }
+}
+
+export async function skyBioIsSmiling(imageBlob) {
   const result = {
     smiling: null,
     error: null,

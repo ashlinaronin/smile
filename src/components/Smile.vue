@@ -6,12 +6,20 @@
     <div class="ui">
       <div class="ui__button">
         <button v-if="!processing" v-on:click="checkIfSmiling" v-focus="true">am I smiling?</button>
+        <button v-if="!processing" v-on:click="checkEmotions">check feelz</button>
         <span v-if="processing">analyzing facial features...</span>
       </div>
       <div class="ui__feedback">
         <span class="ui__feedback--success" v-if="!processing && !error">{{ smilingText }}</span>
         <span class="ui__feedback--error" v-if="!processing && error">Error: {{ error }}</span>
       </div>
+    </div>
+    <div class="ui__attributes">
+      <ul>
+        <li v-for="(attributeValue, attributeKey) in attributes">
+          {{ attributeKey }}: {{ attributeValue.value }} ({{ attributeValue.confidence }}% confidence)
+        </li>
+      </ul>
     </div>
     <div class="canvas">
       <canvas ref="canvas"></canvas>
@@ -21,7 +29,7 @@
 
 <script>
 import VueFocus from 'vue-focus';
-import isSmiling from 'services/face-detection';
+import { isSmiling, getEmotions } from 'services/face-detection';
 
 export default {
   name: 'Smile',
@@ -30,6 +38,7 @@ export default {
       processing: false,
       error: null,
       isSmiling: null,
+      emotions: null,
       context: null,
     };
   },
@@ -37,6 +46,11 @@ export default {
   computed: {
     smilingText() {
       return this.isSmiling ? 'you are smiling 😃.' : 'you are not smiling 😢.';
+    },
+    attributes() {
+      return this.emotions && Object.prototype.hasOwnProperty.call(this.emotions, 'attributes') ?
+        this.emotions.attributes :
+        [];
     },
   },
   mounted() {
@@ -73,6 +87,16 @@ export default {
       this.$log.error('sorry', e);
       this.error = 'Error starting up your webcam';
     },
+    async checkEmotions() {
+      this.error = null;
+      this.isSmiling = null;
+      this.emotions = null;
+      this.processing = true;
+
+      this.$refs.video.pause();
+      this.saveVideoFrameToCanvas();
+      this.$refs.canvas.toBlob(this.emotionsBlobCallback, 'image/png');
+    },
     async checkIfSmiling() {
       this.error = null;
       this.isSmiling = null;
@@ -86,6 +110,12 @@ export default {
       const smilingResults = await isSmiling(blob);
       this.error = smilingResults.error;
       this.isSmiling = smilingResults.smiling;
+      this.processing = false;
+      this.$refs.video.play();
+    },
+    async emotionsBlobCallback(blob) {
+      this.emotions = await getEmotions(blob);
+      this.error = this.emotions.error;
       this.processing = false;
       this.$refs.video.play();
     },
@@ -115,6 +145,13 @@ export default {
 
         &--error {
           color: red;
+        }
+      }
+
+      &__attributes {
+        background-color: #f1eaea;
+        ul {
+          list-style: none;
         }
       }
     }
