@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-const baseUrl = 'http://localhost:3000';
+const baseUrl = 'http://localhost:3000/emotion-detection';
 
 async function postPhoto(imageBlob) {
   const requestUrl = `${baseUrl}/sky-biometry`;

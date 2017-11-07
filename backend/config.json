@@ -1,0 +1,4 @@
+{
+  "skyBiometryBaseUrl": "https://api.skybiometry.com/fc/faces/detect.json",
+  "kairosBaseUrl": "https://api.kairos.com/v2/media"
+}
