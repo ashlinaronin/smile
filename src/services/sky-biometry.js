@@ -3,7 +3,7 @@ import Vue from 'vue';
 const baseUrl = 'http://localhost:3000';
 
 async function postPhoto(imageBlob) {
-  const requestUrl = `${baseUrl}/face-attributes`;
+  const requestUrl = `${baseUrl}/sky-biometry`;
   const formData = new FormData();
   formData.append('file', imageBlob, 'thing.png');
 
