@@ -63,7 +63,7 @@ router.post('/kairos', uploader, async ctx => {
     });
 
     if (response.ok) {
-      ctx.body = await response.json();;
+      ctx.body = await response.json();
     } else {
       ctx.throw(500, 'Kairos: error uploading face');
     }
