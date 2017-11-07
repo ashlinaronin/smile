@@ -8,21 +8,12 @@
         <button v-if="!processing" v-on:click="checkEmotions" v-focus="true">check feelz</button>
         <span v-if="processing">analyzing facial features...</span>
       </div>
-      <div class="ui__attributes" v-if="skyBio || kairos">
-        <div class="ui__attribute-map ui__attribute-map--sky-bio">
-          <h4>SkyBiometry</h4>
-          <span v-if="skyBioErrorMessage">Error getting emotional analysis from SkyBio.</span>
-          <ul v-if="skyBio">
-            <li v-for="(attributeValue, attributeKey) in skyBioAttributes">
-              {{ attributeKey }}: {{ attributeValue.value }} ({{ attributeValue.confidence }}% confidence)
-            </li>
-          </ul>
-        </div>
-        <div class="ui__attribute-map ui__attribute-map--kairos">
-          <h4>Kairos</h4>
-          <span v-if="kairosErrorMessage">Error getting emotional analysis from Kairos.</span>
-          <ul v-if="kairos">
-            <li v-for="(attributeValue, attributeKey) in kairosAttributes">
+      <div class="ui__attributes" v-if="resultsByProvider">
+        <div class="ui__attribute-map" v-for="providerResult in resultsByProvider">
+          <h4>{{ providerResult.provider }}</h4>
+          <span v-if="providerResult.results.error">Error getting emotional analysis from {{ providerResult.provider }}.</span>
+          <ul v-if="providerResult.results.attributes">
+            <li v-for="(attributeValue, attributeKey) in providerResult.results.attributes">
               {{ attributeKey }}: {{ attributeValue }}
             </li>
           </ul>
@@ -45,11 +36,9 @@ export default {
   data() {
     return {
       processing: false,
+      errorMessage: null,
       successMessage: 'Your facial features were successfully analyzed.',
-      skyBioErrorMessage: null,
-      kairosErrorMessage: null,
-      skyBio: null,
-      kairos: null,
+      resultsByProvider: [],
       context: null,
     };
   },
@@ -74,6 +63,7 @@ export default {
     }
   },
   methods: {
+
     initializeWebcam() {
       navigator.getUserMedia = (navigator.getUserMedia ||
         navigator.webkitGetUserMedia ||
@@ -102,8 +92,7 @@ export default {
     },
     async checkEmotions() {
       this.errorMessage = null;
-      this.skyBio = null;
-      this.kairos = null;
+      this.resultsByProvider = [];
       this.processing = true;
 
       this.$refs.video.pause();
@@ -113,11 +102,8 @@ export default {
     async emotionsBlobCallback(blob) {
       const emotionResult = await getEmotions(blob);
 
-      this.skyBio = emotionResult.skyBiometry;
-      this.kairos = emotionResult.kairos;
-      this.skyBioErrorMessage = this.skyBio.error;
-      this.kairosErrorMessage = this.kairos.error;
-
+      this.resultsByProvider = emotionResult.resultsByProvider;
+      this.errorMessage = emotionResult.error;
       this.processing = false;
       this.$refs.video.play();
     },
