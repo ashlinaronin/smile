@@ -1,25 +1,5 @@
 import Vue from 'vue';
-
-const baseUrl = 'http://localhost:3000/emotion-detection';
-
-async function postPhoto(imageBlob) {
-  const requestUrl = `${baseUrl}/kairos`;
-  const formData = new FormData();
-  formData.append('file', imageBlob, 'thing.png');
-
-  const response = await fetch(requestUrl, {
-    method: 'post',
-    body: formData,
-  });
-
-  const jsonResponse = await response.json();
-
-  if (!jsonResponse.status === 'success') {
-    throw new Error('Error connecting to API');
-  }
-
-  return jsonResponse;
-}
+import postPhoto from './post-photo';
 
 export default async function kairosGetEmotions(imageBlob) {
   const result = {
@@ -28,8 +8,9 @@ export default async function kairosGetEmotions(imageBlob) {
   };
 
   try {
-    const jsonResponse = await postPhoto(imageBlob);
+    const kairosUrl = `${process.env.API_BASE_URL}/emotion-detection/kairos`;
 
+    const jsonResponse = await postPhoto(kairosUrl, imageBlob);
     const firstPhoto = jsonResponse.frames[0];
 
     if (firstPhoto.people.length === 0) {

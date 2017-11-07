@@ -38,7 +38,7 @@
 
 <script>
 import VueFocus from 'vue-focus';
-import { getEmotions } from 'services/face-detection';
+import getEmotions from 'services/emotion-detection';
 
 export default {
   name: 'Smile',
