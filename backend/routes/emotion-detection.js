@@ -3,9 +3,16 @@ const FormData = require('form-data');
 const fetch = require('isomorphic-fetch');
 const config = require('../config');
 const router = require('koa-router')();
+const persistence = require('../services/persistence');
 const uploader = busboy({
   dest: './uploads',
 });
+
+init();
+
+async function init() {
+  await persistence.init();
+}
 
 /***
  *  POST /sky-biometry
@@ -25,7 +32,11 @@ router.post('/sky-biometry', uploader, async ctx => {
     });
 
     if (response.ok) {
-      ctx.body = await response.json();
+      const jsonResponse = await response.json();
+      const userId = await persistence.createNewDonor();
+      await persistence.addSmileToDonor(userId, jsonResponse);
+
+      ctx.body = jsonResponse;
     } else {
       ctx.throw(500, 'SkyBiometry: error uploading face');
     }
