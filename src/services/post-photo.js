@@ -1,6 +1,6 @@
 export default async function (requestUrl, imageBlob) {
   const formData = new FormData();
-  formData.append('file', imageBlob, 'thing.png');
+  formData.append('file', imageBlob);
 
   const response = await fetch(requestUrl, {
     method: 'post',
