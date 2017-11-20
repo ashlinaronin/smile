@@ -25,7 +25,11 @@
     },
     methods: {
       imageUrl(smile) {
-        return Object.prototype.hasOwnProperty.call(smile, 'originalImageUrl') ? smile.originalImageUrl : smile.rawResponse.photos[0].url;
+        const httpUrl = Object.prototype.hasOwnProperty.call(smile, 'originalImageUrl') ? smile.originalImageUrl : smile.rawResponse.photos[0].url;
+        return this.httpToHttps(httpUrl);
+      },
+      httpToHttps(url) {
+        return url.replace('http://', 'https://');
       },
     },
   };
