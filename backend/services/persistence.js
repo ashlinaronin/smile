@@ -5,7 +5,7 @@ const skyBiometryParser = require('./skyBiometryParser');
 
 async function init() {
   try {
-    await mongoose.connect('mongodb://localhost/test', { useMongoClient: true });
+    await mongoose.connect('mongodb://127.0.0.1/smile', { useMongoClient: true });
   }
   catch (err) {
     console.log('Error connecting to MongoDB', err);
