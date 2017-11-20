@@ -53,10 +53,12 @@ router.post('/sky-biometry', uploader, async ctx => {
  ***/
 router.post('/kairos', uploader, async ctx => {
   try {
+    console.log('in kairos before formdata');
     const formData = new FormData();
     formData.append('source', ctx.request.files[0]); // readStream
     formData.append('landmarks', 1);
     formData.append('timeout', 20);
+    console.log('in kairos appended formdata');
 
     const response = await fetch(config.kairosBaseUrl, {
       headers: {
@@ -67,8 +69,11 @@ router.post('/kairos', uploader, async ctx => {
       body: formData
     });
 
+    console.log('in kairos after fetch', response);
+
     if (response.ok) {
       ctx.body = await response.json();
+      console.log('in kairos after fetch json', ctx.body);
     } else {
       ctx.throw(500, 'Kairos: error uploading face');
     }
