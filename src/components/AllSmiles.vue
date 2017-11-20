@@ -1,8 +1,9 @@
 <template>
   <div class="all-smiles">
+    <h1>Donations</h1>
     <ul>
-      <li v-for="smile in allSmiles">
-        {{ smile }}
+      <li v-for="smile in allSmiles" v-if="smile.mood">
+        <h3>{{ smile.mood }}</h3>
         <img :src="imageUrl(smile)">
       </li>
     </ul>
@@ -31,4 +32,9 @@
 </script>
 
 <style lang="scss" scoped>
+  .all-smiles {
+    ul {
+      list-style-type: none;
+    }
+  }
 </style>
