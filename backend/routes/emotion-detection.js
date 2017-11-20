@@ -66,9 +66,7 @@ router.post('/kairos', uploader, async ctx => {
       method: 'POST',
       body: formData
     });
-
-    console.log('in kairos after fetch', response);
-
+    
     if (response.ok) {
       ctx.body = await response.json();
     } else {
