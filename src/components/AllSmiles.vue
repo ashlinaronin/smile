@@ -3,6 +3,7 @@
     <ul>
       <li v-for="smile in allSmiles">
         {{ smile }}
+        <img :src="imageUrl(smile)">
       </li>
     </ul>
   </div>
@@ -20,6 +21,11 @@
     },
     async created() {
       this.allSmiles = await getAllSmiles();
+    },
+    methods: {
+      imageUrl(smile) {
+        return Object.prototype.hasOwnProperty.call(smile, 'originalImageUrl') ? smile.originalImageUrl : smile.rawResponse.photos[0].url;
+      },
     },
   };
 </script>

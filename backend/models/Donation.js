@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 let DonationSchema = new mongoose.Schema({
+  originalImageUrl: String,
   facePresent: Boolean,
   gender: String,
   age: Number,

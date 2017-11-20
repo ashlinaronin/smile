@@ -16,6 +16,7 @@ function skyBioResponseToDonation(skyBioResponse) {
   const firstFace = firstPhoto.tags[0];
   const attributes = firstFace.attributes;
 
+  donation.originalImageUrl = firstPhoto.url;
   donation.gender = attributes.gender.value;
   donation.age = attributes.age_est.value;
   donation.mood = attributes.mood.value;
