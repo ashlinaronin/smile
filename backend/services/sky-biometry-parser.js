@@ -21,6 +21,11 @@ function skyBioResponseToDonation(skyBioResponse) {
   donation.age = attributes.age_est.value;
   donation.mood = attributes.mood.value;
   donation.isSmiling = attributes.smiling.value;
+
+  donation.faceWidth = firstFace.width;
+  donation.faceHeight = firstFace.height;
+  donation.imageTotalWidth = firstPhoto.width;
+  donation.imageTotalHeight = firstPhoto.height;
   donation.mouthCenter.x = firstFace.mouth_center.x;
   donation.mouthCenter.y = firstFace.mouth_center.y;
 

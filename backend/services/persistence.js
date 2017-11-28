@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const Donor = require('../models/Donor');
 const Donation = require('../models/Donation');
-const skyBiometryParser = require('./skyBiometryParser');
+const skyBiometryParser = require('./sky-biometry-parser');
 
 async function init() {
   try {
@@ -31,7 +31,8 @@ async function addSmileToDonor(donorId, skybiojson) {
   const donationSaveResponse = await donation.save();
 
   donor.donations.push(donation);
-  return await donor.save();
+  await donor.save();
+  return donation;
 }
 
 async function getAllSmiles() {

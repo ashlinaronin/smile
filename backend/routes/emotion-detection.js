@@ -4,6 +4,7 @@ const fetch = require('isomorphic-fetch');
 const config = require('../config');
 const router = require('koa-router')();
 const persistence = require('../services/persistence');
+const faceChopper = require('../services/face-chopper');
 const uploader = busboy({
   dest: './uploads',
 });
@@ -34,7 +35,8 @@ router.post('/sky-biometry', uploader, async ctx => {
     if (response.ok) {
       const jsonResponse = await response.json();
       const userId = await persistence.createNewDonor();
-      await persistence.addSmileToDonor(userId, jsonResponse);
+      const donation = await persistence.addSmileToDonor(userId, jsonResponse);
+      await faceChopper.saveSmilesFromDonation(donation);
 
       ctx.body = jsonResponse;
     } else {

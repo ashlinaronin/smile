@@ -25,6 +25,7 @@
     "koa-router": "^7.2.1",
     "mongoose": "^4.13.1",
     "request": "^2.83.0",
+    "sharp": "^0.18.4",
     "vue": "^2.4.2",
     "vue-focus": "^2.1.0",
     "vue-router": "^2.7.0",

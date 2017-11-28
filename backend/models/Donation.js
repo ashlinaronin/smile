@@ -11,6 +11,10 @@ let DonationSchema = new mongoose.Schema({
     x: Number,
     y: Number
   },
+  faceWidth: Number,
+  faceHeight: Number,
+  imageTotalWidth: Number,
+  imageTotalHeight: Number,
   rawResponse: mongoose.Schema.Types.Mixed
 });
 
