@@ -3,7 +3,7 @@
     <h1>Donations</h1>
     <ul>
       <li v-for="smile in allSmiles" v-if="smile.mood" class="smile__container">
-        <h3>{{ smile.mood }}</h3>
+        <h3>{{smileHeading(smile)}}</h3>
         <img :src="imageUrl(smile)">
       </li>
     </ul>
@@ -14,16 +14,20 @@
   import Maptastic from 'lib/maptastic';
   import getAllSmiles from 'services/display';
 
+  const FETCH_INTERVAL_MS = 5000;
+
   export default {
     name: 'AllSmiles',
     data() {
       return {
         allSmiles: [],
         projectionMap: null,
+        fetchIntervalId: null,
       };
     },
-    async created() {
-      this.allSmiles = await getAllSmiles();
+    created() {
+      this.refreshSmiles();
+      this.startFetchInterval();
     },
     mounted() {
       const maptasticConfig = {
@@ -34,9 +38,24 @@
 
       this.projectionMap = new Maptastic(maptasticConfig);
     },
+    beforeDestroy() {
+      clearInterval(this.fetchIntervalId);
+    },
     methods: {
       imageUrl(smile) {
         return `${process.env.API_BASE_URL}/${smile.smileImageUrl}`;
+      },
+      smileHeading(smile) {
+        return `${smile.mood} (${this.letterGender(smile.gender)}, ${smile.age})`;
+      },
+      letterGender(gender) {
+        return (gender === 'male') ? 'm' : 'f';
+      },
+      async refreshSmiles() {
+        this.allSmiles = await getAllSmiles();
+      },
+      startFetchInterval() {
+        this.fetchIntervalId = setInterval(this.refreshSmiles, FETCH_INTERVAL_MS);
       },
     },
   };
