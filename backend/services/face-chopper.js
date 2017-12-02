@@ -32,7 +32,7 @@ async function saveSmilesFromDonation(donation) {
     console.log('FaceChopper: Saved smile with image URL');
   }
   catch (err) {
-    console.log('FaceChopper: Error extracting smile from image:', err);
+    console.error('FaceChopper: Error extracting smile from image:', err);
   }
 }
 
@@ -46,7 +46,7 @@ async function fetchImage(url) {
     }
   }
   catch (err) {
-    console.log('FaceChopper: Error fetching original donation image');
+    console.error('FaceChopper: Error fetching original donation image');
   }
 }
 
