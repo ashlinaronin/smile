@@ -11,7 +11,7 @@
       <div class="ui__attributes" v-if="resultsByProvider">
         <div class="ui__attribute-map" v-for="providerResult in resultsByProvider">
           <h4>{{ providerResult.provider }}</h4>
-          <span v-if="providerResult.results.error">Error getting emotional analysis from {{ providerResult.provider }}.</span>
+          <span v-if="providerResult.results.error">Error getting emotional analysis from {{ providerResult.provider }}: {{ providerResult.results.error }}.</span>
           <ul v-if="providerResult.results.attributes">
             <li v-for="(attributeValue, attributeKey) in providerResult.results.attributes">
               {{ attributeKey }}: {{ attributeValue }}

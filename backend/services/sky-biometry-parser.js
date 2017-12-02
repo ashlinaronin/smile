@@ -36,7 +36,7 @@ function skyBioResponseToDonation(skyBioResponse) {
     donation.mouthCenter.y = firstFace.mouth_center.y;
   }
   catch (err) {
-    console.log('Error parsing donation, swallowing');
+    console.warn('Error parsing donation, swallowing');
   }
 
   return donation;

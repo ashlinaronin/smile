@@ -36,7 +36,13 @@ router.post('/sky-biometry', uploader, async ctx => {
       const jsonResponse = await response.json();
       const userId = await persistence.createNewDonor();
       const donation = await persistence.addSmileToDonor(userId, jsonResponse);
-      await faceChopper.saveSmilesFromDonation(donation);
+
+      try {
+        await faceChopper.saveSmilesFromDonation(donation);
+      }
+      catch (err) {
+        console.warn('FaceChopper error, swallowing:', err);
+      }
 
       ctx.body = jsonResponse;
     } else {
