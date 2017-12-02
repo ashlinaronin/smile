@@ -5,18 +5,14 @@
     </div>
     <div class="ui">
       <div class="ui__button">
-        <button v-if="!processing" v-on:click="checkEmotions" v-focus="true">check feelz</button>
+        <button v-if="!processing" v-on:click="checkEmotions" v-focus="true">donate smile</button>
         <span v-if="processing">analyzing facial features...</span>
       </div>
       <div class="ui__attributes" v-if="resultsByProvider">
         <div class="ui__attribute-map" v-for="providerResult in resultsByProvider">
           <h4>{{ providerResult.provider }}</h4>
-          <span v-if="providerResult.results.error">Error getting emotional analysis from {{ providerResult.provider }}: {{ providerResult.results.error }}.</span>
-          <ul v-if="providerResult.results.attributes">
-            <li v-for="(attributeValue, attributeKey) in providerResult.results.attributes">
-              {{ attributeKey }}: {{ attributeValue }}
-            </li>
-          </ul>
+          <span v-if="providerResult.results.error">Error processing donation: {{ providerResult.results.error }}.</span>
+          <span v-if="!providerResult.results.error">{{ successMessage(providerResult) }}</span>
         </div>
       </div>
     </div>
@@ -37,7 +33,6 @@ export default {
     return {
       processing: false,
       errorMessage: null,
-      successMessage: 'Your facial features were successfully analyzed.',
       resultsByProvider: [],
       context: null,
     };
@@ -63,7 +58,6 @@ export default {
     }
   },
   methods: {
-
     initializeWebcam() {
       navigator.getUserMedia = (navigator.getUserMedia ||
         navigator.webkitGetUserMedia ||
@@ -111,6 +105,17 @@ export default {
       if (this.$refs.video.readyState === this.$refs.video.HAVE_ENOUGH_DATA) {
         this.context.drawImage(this.$refs.video, 0, 0);
       }
+    },
+    letterGender(gender) {
+      // fuck the gender binary... but this is what we get back from skybiometry
+      return (gender === 'male') ? 'm' : 'f';
+    },
+    successMessage(providerResult) {
+      const attrs = providerResult.results.attributes;
+      const gender = this.letterGender(attrs.gender.value);
+      const mood = attrs.mood.value;
+      const age = attrs.age_est.value;
+      return `${mood} smile donated! (${gender}, ${age})`;
     },
   },
 };

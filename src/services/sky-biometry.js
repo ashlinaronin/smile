@@ -20,6 +20,10 @@ export default async function skyBioGetEmotions(imageBlob) {
     const firstFace = firstPhoto.tags[0];
     result.attributes = firstFace.attributes;
 
+    if (result.attributes.smiling.value === 'false') {
+      result.error = 'Smile not detected';
+    }
+
     return result;
   } catch (err) {
     Vue.$log.error('Sky Biometry:', err);
