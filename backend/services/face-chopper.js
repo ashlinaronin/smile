@@ -15,17 +15,25 @@ async function saveSmilesFromDonation(donation) {
   const input = sharp(file);
   const output = `./uploads/smiles/${ donation._id }.png`;
 
-  return input
-    .extract({
-      left: Math.ceil(smileLeftX),
-      top: Math.ceil(smileTopY),
-      width: Math.ceil(smileWidth),
-      height: Math.ceil(smileHeight)
-    })
-    .toFile(output)
-    .catch(err => {
-      console.log('FaceChopper: Error extracting smile from image:', err);
-    });
+  try {
+    const imageExtractResult = await input
+      .extract({
+        left: Math.ceil(smileLeftX),
+        top: Math.ceil(smileTopY),
+        width: Math.ceil(smileWidth),
+        height: Math.ceil(smileHeight)
+      })
+      .toFile(output);
+
+    console.log('FaceChopper: Extracted smile:', imageExtractResult);
+
+    donation.smileImageUrl = output;
+    await donation.save();
+    console.log('FaceChopper: Saved smile with image URL');
+  }
+  catch (err) {
+    console.log('FaceChopper: Error extracting smile from image:', err);
+  }
 }
 
 async function fetchImage(url) {
