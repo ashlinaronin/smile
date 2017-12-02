@@ -1,4 +1,5 @@
 const Koa = require('koa');
+const serve = require('koa-static-server');
 const cors = require('koa-cors');
 const logger = require('koa-logger');
 const app = new Koa();
@@ -12,6 +13,7 @@ router.use('/display', displayRoutes.routes());
 app
   .use(logger())
   .use(cors())
+  .use(serve({ rootDir: 'uploads', rootPath: '/uploads' }))
   .use(router.routes())
   .use(router.allowedMethods());
 

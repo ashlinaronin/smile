@@ -13,7 +13,7 @@ async function saveSmilesFromDonation(donation) {
 
   const file = await fetchImage(donation.originalImageUrl);
   const input = sharp(file);
-  const output = `./uploads/smiles/${ donation._id }.png`;
+  const output = `uploads/smiles/${ donation._id }.png`;
 
   try {
     const imageExtractResult = await input
