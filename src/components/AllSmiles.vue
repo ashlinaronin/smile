@@ -19,7 +19,7 @@
     data() {
       return {
         allSmiles: [],
-        map: null,
+        projectionMap: null,
       };
     },
     async created() {
@@ -32,15 +32,11 @@
         layers: [this.$refs.smiles],
       };
 
-      this.map = new Maptastic(maptasticConfig);
+      this.projectionMap = new Maptastic(maptasticConfig);
     },
     methods: {
       imageUrl(smile) {
-        const httpUrl = Object.prototype.hasOwnProperty.call(smile, 'originalImageUrl') ? smile.originalImageUrl : smile.rawResponse.photos[0].url;
-        return this.httpToHttps(httpUrl);
-      },
-      httpToHttps(url) {
-        return url.replace('http://', 'https://');
+        return `${process.env.API_BASE_URL}/${smile.smileImageUrl}`;
       },
     },
   };
