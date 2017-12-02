@@ -15,6 +15,11 @@ function skyBioResponseToDonation(skyBioResponse) {
     }
 
     const firstFace = firstPhoto.tags[0];
+
+    if (firstFace) {
+      donation.facePresent = true;
+    }
+
     const attributes = firstFace.attributes;
 
     donation.originalImageUrl = firstPhoto.url;
