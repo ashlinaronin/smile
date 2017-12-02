@@ -11,6 +11,20 @@ router.get('/all-donations', async ctx => {
   }
   catch (err) {
     console.error(err);
+    ctx.throw(500, 'Display: error fetching donations from DB');
+  }
+});
+
+/***
+ * GET /all-smiles
+ * Get a JSON dump of all smiles from DB
+ */
+router.get('/smiles', async ctx => {
+  try {
+    ctx.body = await persistence.getSmiles();
+  }
+  catch (err) {
+    console.error(err);
     ctx.throw(500, 'Display: error fetching smiles from DB');
   }
 });

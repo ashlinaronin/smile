@@ -39,9 +39,18 @@ async function getAllDonations() {
   return await Donation.find();
 }
 
+async function getSmiles() {
+  return await Donation.find({
+    facePresent: true,
+    isSmiling: true,
+    smileImageUrl: { $ne: null }
+  });
+}
+
 module.exports = {
   init,
   createNewDonor,
   addSmileToDonor,
-  getAllDonations: getAllDonations
+  getAllDonations,
+  getSmiles
 };
