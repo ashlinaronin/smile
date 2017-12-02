@@ -6,11 +6,11 @@
     <div class="ui">
       <div class="ui__button">
         <button v-if="!processing" v-on:click="checkEmotions" v-focus="true">donate smile</button>
-        <span v-if="processing">analyzing facial features...</span>
+        <span v-if="processing">processing donation...</span>
       </div>
       <div class="ui__attributes" v-if="resultsByProvider">
         <div class="ui__attribute-map" v-for="providerResult in resultsByProvider">
-          <h4>{{ providerResult.provider }}</h4>
+          <h4>Donation results</h4>
           <span v-if="providerResult.results.error">Error processing donation: {{ providerResult.results.error }}.</span>
           <span v-if="!providerResult.results.error">{{ successMessage(providerResult) }}</span>
         </div>
