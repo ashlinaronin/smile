@@ -2,12 +2,12 @@ const router = require('koa-router')();
 const persistence = require('../services/persistence');
 
 /***
- *  GET /all-smiles
- *  Get a JSON dump of all donated smiles from DB
+ *  GET /all-donations
+ *  Get a JSON dump of all donated images from DB
  ***/
-router.get('/all-smiles', async ctx => {
+router.get('/all-donations', async ctx => {
   try {
-    ctx.body = await persistence.getAllSmiles();
+    ctx.body = await persistence.getAllDonations();
   }
   catch (err) {
     console.error(err);

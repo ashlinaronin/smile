@@ -35,7 +35,7 @@ async function addSmileToDonor(donorId, skybiojson) {
   return donation;
 }
 
-async function getAllSmiles() {
+async function getAllDonations() {
   return await Donation.find();
 }
 
@@ -43,5 +43,5 @@ module.exports = {
   init,
   createNewDonor,
   addSmileToDonor,
-  getAllSmiles
+  getAllDonations: getAllDonations
 };
