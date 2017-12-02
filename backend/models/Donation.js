@@ -1,20 +1,21 @@
 const mongoose = require('mongoose');
 
 let DonationSchema = new mongoose.Schema({
-  originalImageUrl: String,
-  facePresent: Boolean,
-  gender: String,
-  age: Number,
-  mood: String,
-  isSmiling: Boolean,
+  originalImageUrl: { type: String, default: null },
+  smileImageUrl: { type: String, default: null },
+  facePresent: { type: Boolean, default: false },
+  gender: { type: String, default: null },
+  age: { type: Number, default: null },
+  mood: { type: String, default: null },
+  isSmiling: { type: Boolean, default: false },
   mouthCenter: {
-    x: Number,
-    y: Number
+    x: { type: Number, default: null },
+    y: { type: Number, default: null }
   },
-  faceWidth: Number,
-  faceHeight: Number,
-  imageTotalWidth: Number,
-  imageTotalHeight: Number,
+  faceWidth: { type: Number, default: null },
+  faceHeight: { type: Number, default: null },
+  imageTotalWidth: { type: Number, default: null },
+  imageTotalHeight: { type: Number, default: null },
   rawResponse: mongoose.Schema.Types.Mixed
 });
 
