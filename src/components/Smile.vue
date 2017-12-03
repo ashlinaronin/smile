@@ -1,7 +1,7 @@
 <template>
   <div class="smile">
     <div>
-      <video ref="video"></video>
+      <video ref="video" autoplay playsinline></video>
     </div>
     <div class="ui">
       <div class="ui__button">
@@ -35,6 +35,7 @@ export default {
       errorMessage: null,
       resultsByProvider: [],
       context: null,
+      constraints: { video: true, audio: false },
     };
   },
   mixins: [VueFocus.mixin],
@@ -59,20 +60,17 @@ export default {
   },
   methods: {
     initializeWebcam() {
-      navigator.getUserMedia = (navigator.getUserMedia ||
-        navigator.webkitGetUserMedia ||
-        navigator.mozGetUserMedia ||
-        navigator.msGetUserMedia ||
-        navigator.mediaDevices.getUserMedia);
-
-      navigator.getUserMedia(
-        { video: true, audio: false },
-        this.onWebcamSuccess,
-        this.onWebcamError,
-      );
+      // Adapted from https://github.com/webrtc/samples/tree/gh-pages/src/content/getusermedia/gum
+      // in order to work for iOS 11
+      navigator.mediaDevices.getUserMedia(this.constraints)
+        .then(this.onWebcamSuccess)
+        .catch(this.onWebcamError);
     },
     onWebcamSuccess(stream) {
-      this.$refs.video.src = window.URL.createObjectURL(stream);
+      const videoTracks = stream.getVideoTracks();
+      this.$log.info('Got stream with constraints:', this.constraints);
+      this.$log.info(`Using video device: ${videoTracks[0].label}`);
+      this.$refs.video.srcObject = stream;
       this.$refs.video.onloadedmetadata = this.onLoadedMetadata;
     },
     onLoadedMetadata() {
@@ -80,9 +78,21 @@ export default {
       this.$refs.canvas.width = this.$refs.video.videoWidth;
       this.$refs.canvas.height = this.$refs.video.videoHeight;
     },
-    onWebcamError(e) {
-      this.$log.error('sorry', e);
-      this.errorMessage = 'error starting up your webcam';
+    onInactive() {
+      this.$log.warning('Stream inactive');
+    },
+    onWebcamError(error) {
+      this.$log.error('sorry', error);
+
+      if (error.name === 'ConstraintNotSatisfiedError') {
+        this.errorMessage = `The resolution ${this.constraints.video.width.exact}x${this.constraints.video.width.exact} px is not supported by your device.`;
+      } else if (error.name === 'PermissionDeniedError') {
+        this.errorMessage = 'Permissions have not been granted to use your camera and ' +
+          'microphone. Please allow the page access to your devices in ' +
+          'order to complete the donation process.';
+      } else {
+        this.errorMessage = `getUserMedia error: ${error.name}, ${error}`;
+      }
     },
     async checkEmotions() {
       this.errorMessage = null;
