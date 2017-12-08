@@ -5,18 +5,17 @@
 </template>
 
 <script>
-  import Maptastic from 'lib/maptastic';
+  import maptasticMixin from '@/mixins/maptasticMixin';
   import getAllSmiles from 'services/display';
 
   const FETCH_INTERVAL_MS = 5000;
-  const USE_MAPTASTIC = false;
 
   export default {
     name: 'AllSmiles',
+    mixins: [maptasticMixin],
     data() {
       return {
         allSmiles: [],
-        projectionMap: null,
         fetchIntervalId: null,
       };
     },
@@ -28,11 +27,6 @@
     created() {
       this.refreshSmiles();
       this.startFetchInterval();
-    },
-    mounted() {
-      if (USE_MAPTASTIC) {
-        this.initializeMaptastic();
-      }
     },
     beforeDestroy() {
       clearInterval(this.fetchIntervalId);
@@ -46,15 +40,6 @@
       },
       startFetchInterval() {
         this.fetchIntervalId = setInterval(this.refreshSmiles, FETCH_INTERVAL_MS);
-      },
-      initializeMaptastic() {
-        const maptasticConfig = {
-          autoSave: false,
-          autoLoad: false,
-          layers: [this.$refs.smiles],
-        };
-
-        this.projectionMap = new Maptastic(maptasticConfig);
       },
     },
   };

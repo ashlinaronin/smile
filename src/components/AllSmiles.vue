@@ -9,29 +9,23 @@
 </template>
 
 <script>
-  import Maptastic from 'lib/maptastic';
+  import maptasticMixin from '@/mixins/maptasticMixin';
   import getAllSmiles from 'services/display';
 
   const FETCH_INTERVAL_MS = 5000;
-  const USE_MAPTASTIC = false;
 
   export default {
     name: 'AllSmiles',
+    mixins: [maptasticMixin],
     data() {
       return {
         allSmiles: [],
-        projectionMap: null,
         fetchIntervalId: null,
       };
     },
     created() {
       this.refreshSmiles();
       this.startFetchInterval();
-    },
-    mounted() {
-      if (USE_MAPTASTIC) {
-        this.initializeMaptastic();
-      }
     },
     beforeDestroy() {
       clearInterval(this.fetchIntervalId);
@@ -40,26 +34,11 @@
       imageUrl(smile) {
         return `${process.env.API_BASE_URL}/${smile.smileImageUrl}`;
       },
-      smileHeading(smile) {
-        return `${smile.mood} (${this.letterGender(smile.gender)}, ${smile.age})`;
-      },
-      letterGender(gender) {
-        return (gender === 'male') ? 'm' : 'f';
-      },
       async refreshSmiles() {
         this.allSmiles = await getAllSmiles();
       },
       startFetchInterval() {
         this.fetchIntervalId = setInterval(this.refreshSmiles, FETCH_INTERVAL_MS);
-      },
-      initializeMaptastic() {
-        const maptasticConfig = {
-          autoSave: false,
-          autoLoad: false,
-          layers: [this.$refs.smiles],
-        };
-
-        this.projectionMap = new Maptastic(maptasticConfig);
       },
     },
   };
