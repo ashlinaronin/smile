@@ -67,7 +67,7 @@
 
 <style lang="scss" scoped>
   .all-smiles {
-    width: 100%;
+    width: 100vw;
 
     ul {
       list-style-type: none;
@@ -78,12 +78,11 @@
     }
 
     .smile__container {
-      width: 200px;
-      height: 100px;
+      flex-basis: 20%;
 
       img {
-        width: 200px;
-        height: 100px;
+        width: 100%;
+        height: 100%;
       }
     }
   }
