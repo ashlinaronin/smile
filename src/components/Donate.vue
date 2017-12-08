@@ -28,7 +28,7 @@ import VueFocus from 'vue-focus';
 import getEmotions from 'services/emotion-detection';
 
 export default {
-  name: 'Smile',
+  name: 'Donate',
   data() {
     return {
       processing: false,

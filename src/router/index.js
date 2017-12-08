@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Smile from '@/components/Smile';
+import Donate from '@/components/Donate';
 import AllSmiles from '@/components/AllSmiles';
 import Welcome from '@/components/Welcome';
 import ThankYou from '@/components/ThankYou';
@@ -11,20 +11,23 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Smile',
-      component: Smile,
-    },
-    { path: '/all-smiles',
-      name: 'AllSmiles',
-      component: AllSmiles,
-    },
-    { path: '/welcome',
       name: 'Welcome',
       component: Welcome,
     },
-    { path: '/thank-you',
+    {
+      path: '/donate',
+      name: 'Donate',
+      component: Donate,
+    },
+    {
+      path: '/thank-you',
       name: 'ThankYou',
       component: ThankYou,
+    },
+    {
+      path: '/all-smiles',
+      name: 'AllSmiles',
+      component: AllSmiles,
     },
   ],
 });
