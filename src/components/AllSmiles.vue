@@ -15,6 +15,7 @@
   import getAllSmiles from 'services/display';
 
   const FETCH_INTERVAL_MS = 5000;
+  const USE_MAPTASTIC = false;
 
   export default {
     name: 'AllSmiles',
@@ -30,13 +31,9 @@
       this.startFetchInterval();
     },
     mounted() {
-      const maptasticConfig = {
-        autoSave: false,
-        autoLoad: false,
-        layers: [this.$refs.smiles],
-      };
-
-      this.projectionMap = new Maptastic(maptasticConfig);
+      if (USE_MAPTASTIC) {
+        this.initializeMaptastic();
+      }
     },
     beforeDestroy() {
       clearInterval(this.fetchIntervalId);
@@ -56,6 +53,15 @@
       },
       startFetchInterval() {
         this.fetchIntervalId = setInterval(this.refreshSmiles, FETCH_INTERVAL_MS);
+      },
+      initializeMaptastic() {
+        const maptasticConfig = {
+          autoSave: false,
+          autoLoad: false,
+          layers: [this.$refs.smiles],
+        };
+
+        this.projectionMap = new Maptastic(maptasticConfig);
       },
     },
   };
