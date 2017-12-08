@@ -1,9 +1,7 @@
 <template>
   <div class="all-smiles" ref="smiles" id="test">
-    <h1>Donations</h1>
     <ul>
       <li v-for="smile in allSmiles" v-if="smile.mood" class="smile__container">
-        <h3>{{smileHeading(smile)}}</h3>
         <img :src="imageUrl(smile)">
       </li>
     </ul>
@@ -69,16 +67,23 @@
 
 <style lang="scss" scoped>
   .all-smiles {
+    width: 100%;
+
     ul {
       list-style-type: none;
       display: flex;
       flex-wrap: wrap;
+      margin: 0;
+      padding: 0;
     }
 
     .smile__container {
+      width: 200px;
+      height: 100px;
+
       img {
         width: 200px;
-        height: auto;
+        height: 100px;
       }
     }
   }
