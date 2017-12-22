@@ -9,6 +9,9 @@
     </ol>
     <p>When you're ready to start press the button below.</p>
     <router-link class="button" to="donate">I'm ready</router-link>
+    <div class="fine-print">
+      <small>*Happy, sad, surprised, angry, confused and disgusted smiles are accepted.</small>
+    </div>
   </div>
 </template>
 
@@ -22,5 +25,9 @@
   .welcome {
     padding: 20px;
     text-align: left;
+
+    .fine-print {
+      margin-top: 100px;
+    }
   }
 </style>
