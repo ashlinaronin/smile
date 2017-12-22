@@ -116,16 +116,10 @@ export default {
         this.context.drawImage(this.$refs.video, 0, 0);
       }
     },
-    letterGender(gender) {
-      // fuck the gender binary... but this is what we get back from skybiometry
-      return (gender === 'male') ? 'm' : 'f';
-    },
     successMessage(providerResult) {
       const attrs = providerResult.results.attributes;
-      const gender = this.letterGender(attrs.gender.value);
       const mood = attrs.mood.value;
-      const age = attrs.age_est.value;
-      return `${mood} smile donated! (${gender}, ${age})`;
+      return `${mood} smile donated!`;
     },
   },
 };
