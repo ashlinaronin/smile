@@ -167,22 +167,5 @@ export default {
     .canvas {
       display: none;
     }
-
-    button {
-      font-size: 24px;
-      border: 1px solid black;
-      background: transparent;
-      padding: 20px;
-
-
-      &:hover, &:focus {
-        background: grey;
-        color: white;
-      }
-      &:active {
-        background: black;
-        color: white;
-      }
-    }
   }
 </style>

@@ -1,8 +1,14 @@
 <template>
   <div class="welcome">
     <h1>Welcome!</h1>
-    <p>Welcome copy here. asdf jkasl dfjkla sdjfk lasjdkf aljsd fkla sjkfdl ajskdfl jsk f</p>
-    <router-link to="donate">I'm ready</router-link>
+    <p>Donating smiles is easy. Here's how it works:</p>
+    <ol>
+      <li>Make a smiling face*. Hit the Donate button.</li>
+      <li>Repeat as many times as necessary</li>
+      <li>Check out the other smiles outside!</li>
+    </ol>
+    <p>When you're ready to start press the button below.</p>
+    <router-link class="button" to="donate">I'm ready</router-link>
   </div>
 </template>
 
@@ -14,6 +20,7 @@
 
 <style lang="scss" scoped>
   .welcome {
-
+    padding: 20px;
+    text-align: left;
   }
 </style>
