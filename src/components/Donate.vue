@@ -13,9 +13,13 @@
         <span v-if="processing">processing donation...</span>
       </div>
       <div class="ui__attributes" v-if="serviceResults">
-        <h4>Donation results</h4>
-        <span v-if="errorMessage">Error: {{ errorMessage }}. Please try again!</span>
-        <span v-if="!errorMessage">{{ successMessage }}</span>
+        <div>
+          <h4>Donation results</h4>
+        </div>
+        <div>
+          <p v-if="errorMessage"><strong>Error</strong>: {{ errorMessage }}. Please try again!</p>
+          <p v-if="!errorMessage"><strong>Success</strong>: {{ successMessage }}</p>
+        </div>
       </div>
     </div>
 
@@ -165,6 +169,7 @@ export default {
 
         > div {
           flex: 1;
+          vertical-align: middle;
         }
 
         ul {
