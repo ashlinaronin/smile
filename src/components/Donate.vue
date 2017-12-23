@@ -1,18 +1,18 @@
 <template>
   <div class="smile">
+    <div class="ui__progress">
+      {{ smilesDonated }} smiles donated
+    </div>
     <div>
       <video ref="video" autoplay playsinline></video>
     </div>
-    <div class="ui">
-      <div class="ui__progress">
-        {{ smilesDonated }} smiles donated
-      </div>
+    <div>
       <div class="ui__button">
         <button v-if="!processing" v-on:click="checkEmotions" v-focus="true">donate smile</button>
         <router-link v-if="!processing" class="button" to="thank-you">i'm done</router-link>
-        <span v-if="processing">processing donation...</span>
+        <div v-if="processing">processing donation...</div>
       </div>
-      <div class="ui__attributes" v-if="serviceResults">
+      <div class="ui__results" v-if="serviceResults">
         <div>
           <h4>Donation results</h4>
         </div>
@@ -148,33 +148,25 @@ export default {
   .smile {
     font-size: 24px;
 
-    .ui {
-      margin-top: 100px;
+    .ui__progress {
+      background: blue;
+      width: 25%;
+      right: 0;
+      position: relative;
+      top: 0;
+    }
 
-      &__feedback {
-        margin-top: 50px;
+    .ui__results {
+      background-color: $light-pink;
+      display: flex;
 
-        &--success {
-
-        }
-
-        &--error {
-          color: red;
-        }
+      > div {
+        flex: 1;
+        vertical-align: middle;
       }
 
-      &__attributes {
-        background-color: $light-pink;
-        display: flex;
-
-        > div {
-          flex: 1;
-          vertical-align: middle;
-        }
-
-        ul {
-          list-style: none;
-        }
+      ul {
+        list-style: none;
       }
     }
 
