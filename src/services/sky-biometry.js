@@ -13,7 +13,7 @@ export default async function skyBioGetEmotions(imageBlob) {
     const firstPhoto = jsonResponse.photos[0];
 
     if (firstPhoto.tags.length === 0) {
-      result.error = 'No faces found';
+      result.error = 'We couldn\'t detect your face';
       return result;
     }
 
@@ -21,13 +21,13 @@ export default async function skyBioGetEmotions(imageBlob) {
     result.attributes = firstFace.attributes;
 
     if (result.attributes.smiling.value === 'false') {
-      result.error = 'Smile not detected';
+      result.error = 'It appears you are not smiling';
     }
 
     return result;
   } catch (err) {
     Vue.$log.error('Sky Biometry:', err);
-    result.error = 'Error processing face';
+    result.error = 'We couldn\'t process your donation';
     return result;
   }
 }
