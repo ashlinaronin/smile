@@ -1,9 +1,13 @@
 <template>
   <div id="app">
-    <router-link to="/">
-      <div id="logo">logo here</div>
-    </router-link>
-    <router-view></router-view>
+    <header>
+      <router-link to="/">
+        <div id="logo">logo here</div>
+      </router-link>
+    </header>
+    <main>
+      <router-view></router-view>
+    </main>
   </div>
 </template>
 
@@ -28,8 +32,16 @@ body {
   color: #2c3e50;
 }
 
+header {
+  display: flex;
+  justify-content: space-between;
+}
+
 #logo {
   background: $yellow;
+  width: 100px;
+  height: 50px;
+  border: 1px solid $black;
 }
 
 p, li {

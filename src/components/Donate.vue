@@ -1,7 +1,9 @@
 <template>
   <div class="smile">
     <div class="ui__progress">
-      {{ smilesDonated }} smiles donated
+      <div>
+        {{ smilesDonated }} smiles donated
+      </div>
     </div>
     <div>
       <video ref="video" autoplay playsinline></video>
@@ -149,11 +151,14 @@ export default {
     font-size: 24px;
 
     .ui__progress {
-      background: blue;
-      width: 25%;
-      right: 0;
-      position: relative;
-      top: 0;
+      display: flex;
+      color: white;
+      justify-content: flex-end;
+      > div {
+        border: 1px solid $light-grey;
+        background: grey;
+        flex-basis: 25%;
+      }
     }
 
     .ui__results {
