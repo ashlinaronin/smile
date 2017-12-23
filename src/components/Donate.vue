@@ -2,7 +2,10 @@
   <div class="smile">
     <div class="ui__progress">
       <div>
-        {{ progressMessage }}
+        {{ emojiProgressMessage }}
+      </div>
+      <div>
+        {{ textProgressMessage }}
       </div>
     </div>
     <div>
@@ -61,7 +64,7 @@ export default {
     successMessage() {
       return (this.serviceResults && this.donationMood) ? `${this.donationMood} smile donated!` : null;
     },
-    progressMessage() {
+    emojiProgressMessage() {
       const smileStringArray = new Array(MAX_DONATIONS);
       smileStringArray.fill('0');
 
@@ -70,6 +73,10 @@ export default {
       }
 
       return smileStringArray.join('');
+    },
+    textProgressMessage() {
+      const smilePluralization = (this.smilesDonated === 1) ? 'smile' : 'smiles';
+      return `${this.smilesDonated} ${smilePluralization} donated!`;
     },
   },
   mounted() {
