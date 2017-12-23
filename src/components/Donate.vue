@@ -52,16 +52,6 @@ export default {
   },
   mixins: [VueFocus.mixin],
   computed: {
-    skyBioAttributes() {
-      return this.skyBio && Object.prototype.hasOwnProperty.call(this.skyBio, 'attributes') ?
-        this.skyBio.attributes :
-        [];
-    },
-    kairosAttributes() {
-      return this.kairos && Object.prototype.hasOwnProperty.call(this.kairos, 'attributes') ?
-        this.kairos.attributes :
-        [];
-    },
     donationMood() {
       return this.serviceResults &&
         this.serviceResults.attributes &&
@@ -174,7 +164,6 @@ export default {
       > div {
         border: 1px solid $light-grey;
         background: grey;
-        /*flex-basis: 25%;*/
         text-align: right;
         padding: 4px;
       }
