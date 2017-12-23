@@ -21,7 +21,7 @@ body {
 }
 
 #app {
-  font-family: monospace, 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: $main-body-font;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -37,6 +37,7 @@ p, li {
 }
 
 .button, button {
+  font-family: $main-body-font;
   display: inline-block;
   margin: 40px 0;
   font-size: 26px;
