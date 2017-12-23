@@ -1,13 +1,14 @@
 <template>
   <div class="thank-you">
     <h1>Thank You!</h1>
-    <p>Thank you copy here. asdf jkasl dfjkla sdjfk lasjdkf aljsd fkla sjkfdl ajskdfl jsk f</p>
+    <p>We appreciate your smiles. Make sure to pick up a cookie and a sticker on your way out!</p>
+    <router-link class="button" to="/">Start over</router-link>
   </div>
 </template>
 
 <script>
   export default {
-    name: 'Thank You',
+    name: 'ThankYou',
   };
 </script>
 
