@@ -2,7 +2,7 @@
   <div class="smile">
     <div class="ui__progress">
       <div>
-        {{ smilesDonated }} smiles donated
+        {{ progressMessage }}
       </div>
     </div>
     <div>
@@ -36,6 +36,7 @@ import VueFocus from 'vue-focus';
 import getEmotions from 'services/emotion-detection';
 
 const SKY_BIOMETRY_RESULTS_INDEX = 0;
+const MAX_DONATIONS = 3;
 
 export default {
   name: 'Donate',
@@ -69,6 +70,16 @@ export default {
     },
     successMessage() {
       return (this.serviceResults && this.donationMood) ? `${this.donationMood} smile donated!` : null;
+    },
+    progressMessage() {
+      const smileStringArray = new Array(MAX_DONATIONS);
+      smileStringArray.fill('0');
+
+      for (let i = 0; i < this.smilesDonated; i += 1) {
+        smileStringArray[i] = '😀';
+      }
+
+      return smileStringArray.join('');
     },
   },
   mounted() {
@@ -133,6 +144,12 @@ export default {
         this.smilesDonated += 1;
       }
 
+      if (this.smilesDonated === MAX_DONATIONS) {
+        this.$router.replace({
+          name: 'ThankYou',
+        });
+      }
+
       this.$refs.video.play();
     },
     saveVideoFrameToCanvas() {
@@ -157,7 +174,9 @@ export default {
       > div {
         border: 1px solid $light-grey;
         background: grey;
-        flex-basis: 25%;
+        /*flex-basis: 25%;*/
+        text-align: right;
+        padding: 4px;
       }
     }
 
