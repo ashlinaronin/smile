@@ -4,16 +4,18 @@
       <video ref="video" autoplay playsinline></video>
     </div>
     <div class="ui">
+      <div class="ui__progress">
+        {{ smilesDonated }} smiles donated
+      </div>
       <div class="ui__button">
         <button v-if="!processing" v-on:click="checkEmotions" v-focus="true">donate smile</button>
+        <router-link v-if="!processing" class="button" to="thank-you">i'm done</router-link>
         <span v-if="processing">processing donation...</span>
       </div>
-      <div class="ui__attributes" v-if="resultsByProvider">
-        <div class="ui__attribute-map" v-for="providerResult in resultsByProvider">
-          <h4>Donation results</h4>
-          <span v-if="providerResult.results.error">Error processing donation: {{ providerResult.results.error }}.</span>
-          <span v-if="!providerResult.results.error">{{ successMessage(providerResult) }}</span>
-        </div>
+      <div class="ui__attributes" v-if="serviceResults">
+        <h4>Donation results</h4>
+        <span v-if="errorMessage">Error: {{ errorMessage }}. Please try again!</span>
+        <span v-if="!errorMessage">{{ successMessage }}</span>
       </div>
     </div>
 
@@ -27,13 +29,16 @@
 import VueFocus from 'vue-focus';
 import getEmotions from 'services/emotion-detection';
 
+const SKY_BIOMETRY_RESULTS_INDEX = 0;
+
 export default {
   name: 'Donate',
   data() {
     return {
       processing: false,
       errorMessage: null,
-      resultsByProvider: [],
+      serviceResults: null,
+      smilesDonated: 0,
       context: null,
       constraints: { video: true, audio: false },
     };
@@ -49,6 +54,15 @@ export default {
       return this.kairos && Object.prototype.hasOwnProperty.call(this.kairos, 'attributes') ?
         this.kairos.attributes :
         [];
+    },
+    donationMood() {
+      return this.serviceResults &&
+        this.serviceResults.attributes &&
+        this.serviceResults.attributes.mood &&
+        this.serviceResults.attributes.mood.value;
+    },
+    successMessage() {
+      return (this.serviceResults && this.donationMood) ? `${this.donationMood} smile donated!` : null;
     },
   },
   mounted() {
@@ -95,8 +109,8 @@ export default {
       }
     },
     async checkEmotions() {
+      this.serviceResults = null;
       this.errorMessage = null;
-      this.resultsByProvider = [];
       this.processing = true;
 
       this.$refs.video.pause();
@@ -105,10 +119,14 @@ export default {
     },
     async emotionsBlobCallback(blob) {
       const emotionResult = await getEmotions(blob);
-
-      this.resultsByProvider = emotionResult.resultsByProvider;
-      this.errorMessage = emotionResult.error;
+      this.serviceResults = emotionResult.resultsByProvider[SKY_BIOMETRY_RESULTS_INDEX].results;
+      this.errorMessage = this.serviceResults.error;
       this.processing = false;
+
+      if (!this.errorMessage) {
+        this.smilesDonated += 1;
+      }
+
       this.$refs.video.play();
     },
     saveVideoFrameToCanvas() {
@@ -116,22 +134,18 @@ export default {
         this.context.drawImage(this.$refs.video, 0, 0);
       }
     },
-    successMessage(providerResult) {
-      const attrs = providerResult.results.attributes;
-      const mood = attrs.mood.value;
-      return `${mood} smile donated!`;
-    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+  @import '../styles/settings';
+
   .smile {
     font-size: 24px;
 
     .ui {
       margin-top: 100px;
-
 
       &__feedback {
         margin-top: 50px;
@@ -146,8 +160,9 @@ export default {
       }
 
       &__attributes {
-        background-color: #f1eaea;
+        background-color: $light-pink;
         display: flex;
+
         > div {
           flex: 1;
         }
