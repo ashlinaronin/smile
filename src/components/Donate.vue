@@ -1,13 +1,5 @@
 <template>
   <div class="smile">
-    <div class="ui__progress">
-      <div>
-        {{ emojiProgressMessage }}
-      </div>
-      <div>
-        {{ textProgressMessage }}
-      </div>
-    </div>
     <div>
       <video ref="video" autoplay playsinline></video>
     </div>
@@ -42,7 +34,7 @@ const SKY_BIOMETRY_RESULTS_INDEX = 0;
 const MAX_DONATIONS = 3;
 
 export default {
-  name: 'Donate',
+  name: 'donate',
   data() {
     return {
       processing: false,
@@ -163,18 +155,6 @@ export default {
 
   .smile {
     font-size: 24px;
-
-    .ui__progress {
-      display: flex;
-      color: white;
-      justify-content: flex-end;
-      > div {
-        border: 1px solid $light-grey;
-        background: grey;
-        text-align: right;
-        padding: 4px;
-      }
-    }
 
     .ui__results {
       background-color: $light-pink;

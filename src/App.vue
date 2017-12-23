@@ -4,6 +4,7 @@
       <router-link to="/">
         <div id="logo">logo here</div>
       </router-link>
+      <donation-progress v-if="showProgress"></donation-progress>
     </header>
     <main>
       <router-view></router-view>
@@ -12,8 +13,18 @@
 </template>
 
 <script>
+import DonationProgress from '@/components/DonationProgress';
+
 export default {
   name: 'app',
+  computed: {
+    showProgress() {
+      return this.$route.name === 'Donate';
+    },
+  },
+  components: {
+    DonationProgress,
+  },
 };
 </script>
 

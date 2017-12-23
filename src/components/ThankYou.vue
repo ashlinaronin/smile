@@ -8,7 +8,7 @@
 
 <script>
   export default {
-    name: 'ThankYou',
+    name: 'thank-you',
   };
 </script>
 

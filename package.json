@@ -30,7 +30,8 @@
     "vue": "^2.4.2",
     "vue-focus": "^2.1.0",
     "vue-router": "^2.7.0",
-    "vuejs-logger": "^1.1.4"
+    "vuejs-logger": "^1.1.4",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

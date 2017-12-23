@@ -11,7 +11,7 @@
   const FETCH_INTERVAL_MS = 5000;
 
   export default {
-    name: 'AllSmiles',
+    name: 'one-smile',
     mixins: [maptasticMixin],
     data() {
       return {
