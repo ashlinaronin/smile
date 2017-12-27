@@ -24,7 +24,6 @@
 <style lang="scss" scoped>
   .welcome {
     padding: 20px;
-    text-align: left;
 
     .fine-print {
       margin-top: 100px;
