@@ -29,18 +29,20 @@
 <script>
 import VueFocus from 'vue-focus';
 import getEmotions from 'services/emotion-detection';
+import store from '@/store';
+import mutations from '@/library/dictionary/mutations';
 
 const SKY_BIOMETRY_RESULTS_INDEX = 0;
 const MAX_DONATIONS = 3;
 
 export default {
+  store,
   name: 'donate',
   data() {
     return {
       processing: false,
       errorMessage: null,
       serviceResults: null,
-      smilesDonated: 0,
       context: null,
       constraints: { video: true, audio: false },
     };
@@ -56,19 +58,8 @@ export default {
     successMessage() {
       return (this.serviceResults && this.donationMood) ? `${this.donationMood} smile donated!` : null;
     },
-    emojiProgressMessage() {
-      const smileStringArray = new Array(MAX_DONATIONS);
-      smileStringArray.fill('0');
-
-      for (let i = 0; i < this.smilesDonated; i += 1) {
-        smileStringArray[i] = '😀';
-      }
-
-      return smileStringArray.join('');
-    },
-    textProgressMessage() {
-      const smilePluralization = (this.smilesDonated === 1) ? 'smile' : 'smiles';
-      return `${this.smilesDonated} ${smilePluralization} donated!`;
+    smilesDonated() {
+      return this.$store.state.smilesDonated;
     },
   },
   mounted() {
@@ -130,13 +121,7 @@ export default {
       this.processing = false;
 
       if (!this.errorMessage) {
-        this.smilesDonated += 1;
-      }
-
-      if (this.smilesDonated === MAX_DONATIONS) {
-        this.$router.replace({
-          name: 'ThankYou',
-        });
+        this.$store.commit(mutations.DONATE_SMILE);
       }
 
       this.$refs.video.play();
@@ -144,6 +129,13 @@ export default {
     saveVideoFrameToCanvas() {
       if (this.$refs.video.readyState === this.$refs.video.HAVE_ENOUGH_DATA) {
         this.context.drawImage(this.$refs.video, 0, 0);
+      }
+    },
+  },
+  watch: {
+    smilesDonated(numSmiles) {
+      if (numSmiles === MAX_DONATIONS) {
+        this.$router.replace({ name: 'ThankYou' });
       }
     },
   },

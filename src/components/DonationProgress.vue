@@ -14,16 +14,26 @@
 <script>
   import store from '@/store';
 
-  // TODO: get these from store
   export default {
     store,
     name: 'donation-progress',
     computed: {
+      smilesDonated() {
+        return this.$store.state.smilesDonated;
+      },
       emojiProgressMessage() {
-        return '😃';
+        const smileStringArray = new Array(MAX_DONATIONS);
+        smileStringArray.fill('0');
+
+        for (let i = 0; i < this.smilesDonated; i += 1) {
+          smileStringArray[i] = '😀';
+        }
+
+        return smileStringArray.join('');
       },
       textProgressMessage() {
-        return 'fake text progress';
+        const smilePluralization = (this.smilesDonated === 1) ? 'smile' : 'smiles';
+        return `${this.smilesDonated} ${smilePluralization} donated!`;
       },
     },
   };
