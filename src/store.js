@@ -15,6 +15,9 @@ const store = new Vuex.Store({
     [mutations.DONATE_SMILE](state) {
       state.smilesDonated += 1;
     },
+    [mutations.RESET_DONATIONS](state) {
+      state.smilesDonated = 0;
+    },
   },
   getters: {
 

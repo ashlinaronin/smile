@@ -1,3 +1,4 @@
 export default {
   DONATE_SMILE: 'DONATE_SMILE',
+  RESET_DONATIONS: 'RESET_DONATIONS',
 };

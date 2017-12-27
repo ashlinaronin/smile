@@ -16,8 +16,15 @@
 </template>
 
 <script>
+  import store from '@/store';
+  import mutations from '@/library/dictionary/mutations';
+
   export default {
+    store,
     name: 'welcome',
+    created() {
+      this.$store.commit(mutations.RESET_DONATIONS);
+    },
   };
 </script>
 
