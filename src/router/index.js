@@ -5,6 +5,7 @@ import AllSmiles from '@/components/AllSmiles';
 import OneSmile from '@/components/OneSmile';
 import Welcome from '@/components/Welcome';
 import ThankYou from '@/components/ThankYou';
+import SmileMaterial from '@/components/SmileMaterial';
 
 Vue.use(Router);
 
@@ -24,6 +25,11 @@ export default new Router({
       path: '/thank-you',
       name: 'ThankYou',
       component: ThankYou,
+    },
+    {
+      path: '/material',
+      name: 'SmileMaterial',
+      component: SmileMaterial,
     },
     {
       path: '/all-smiles',
