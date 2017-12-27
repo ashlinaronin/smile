@@ -14,6 +14,8 @@
 <script>
   import store from '@/store';
 
+  const MAX_DONATIONS = 3;
+
   export default {
     store,
     name: 'donation-progress',
