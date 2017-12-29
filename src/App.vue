@@ -1,9 +1,7 @@
 <template>
   <div id="app">
     <header>
-      <router-link to="/">
-        <div id="logo">logo here</div>
-      </router-link>
+      <logo-link></logo-link>
       <donation-progress v-if="showProgress"></donation-progress>
     </header>
     <main>
@@ -14,6 +12,7 @@
 
 <script>
 import DonationProgress from '@/components/DonationProgress';
+import LogoLink from '@/components/LogoLink';
 
 export default {
   name: 'app',
@@ -24,6 +23,7 @@ export default {
   },
   components: {
     DonationProgress,
+    LogoLink,
   },
 };
 </script>
@@ -46,13 +46,6 @@ body {
 header {
   display: flex;
   justify-content: space-between;
-}
-
-#logo {
-  background: $yellow;
-  width: 100px;
-  height: 50px;
-  border: 1px solid $black;
 }
 
 p, li {
