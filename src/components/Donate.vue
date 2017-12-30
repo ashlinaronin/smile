@@ -12,6 +12,7 @@
       <div class="ui__results" v-if="serviceResults">
         <div>
           <h4>Donation results</h4>
+          <img :src="donationImageUrl" />
         </div>
         <div>
           <p v-if="errorMessage"><strong>Error</strong>: {{ errorMessage }}. Please try again!</p>
@@ -54,6 +55,9 @@ export default {
         this.serviceResults.attributes &&
         this.serviceResults.attributes.mood &&
         this.serviceResults.attributes.mood.value;
+    },
+    donationImageUrl() {
+      return this.serviceResults && this.serviceResults.originalImageUrl;
     },
     successMessage() {
       return (this.serviceResults && this.donationMood) ? `${this.donationMood} smile donated!` : null;
@@ -156,6 +160,7 @@ export default {
 
     .ui__results {
       background-color: $light-pink;
+      border: 1px solid $light-grey;
       display: flex;
 
       > div {
@@ -165,6 +170,10 @@ export default {
 
       ul {
         list-style: none;
+      }
+
+      img {
+        width: 100px;
       }
     }
 

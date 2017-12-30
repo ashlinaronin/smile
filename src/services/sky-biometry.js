@@ -3,6 +3,8 @@ import postPhoto from './post-photo';
 
 export default async function skyBioGetEmotions(imageBlob) {
   const result = {
+    originalImageUrl: null,
+    smileUrl: null,
     attributes: {},
     error: null,
   };
@@ -11,6 +13,7 @@ export default async function skyBioGetEmotions(imageBlob) {
     const skyBioUrl = `${process.env.API_BASE_URL}/emotion-detection/sky-biometry`;
     const jsonResponse = await postPhoto(skyBioUrl, imageBlob);
     const firstPhoto = jsonResponse.photos[0];
+    result.originalImageUrl = firstPhoto.url;
 
     if (firstPhoto.tags.length === 0) {
       result.error = 'We couldn\'t detect your face';
@@ -21,7 +24,7 @@ export default async function skyBioGetEmotions(imageBlob) {
     result.attributes = firstFace.attributes;
 
     if (result.attributes.smiling.value === 'false') {
-      result.error = 'It appears you are not smiling';
+      result.error = 'Looks like you\'re not smiling';
     }
 
     return result;
