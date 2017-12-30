@@ -1,6 +1,6 @@
 <template>
   <div class="smile">
-    <div>
+    <div class="ui__webcam">
       <video ref="video" autoplay playsinline></video>
     </div>
     <div>
@@ -147,6 +147,12 @@ export default {
 
   .smile {
     font-size: 24px;
+
+    .ui__webcam {
+      video {
+        width: 100%;
+      }
+    }
 
     .ui__results {
       background-color: $light-pink;
