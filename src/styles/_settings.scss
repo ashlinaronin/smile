@@ -7,4 +7,11 @@ $black: #000000;
 $light-grey: lightgrey;
 $light-pink: #f1eaea;
 
-$main-body-font: Arial, sans-serif;
+
+// Typography
+@import url('https://fonts.googleapis.com/css?family=Monofett|Work+Sans');
+
+$header-font: 'Monofett', Verdana, sans-serif;
+$main-body-font: 'Work Sans', Arial, sans-serif;
+
+
