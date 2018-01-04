@@ -12,7 +12,15 @@ export default async function skyBioGetEmotions(imageBlob) {
   try {
     const skyBioUrl = `${process.env.API_BASE_URL}/emotion-detection/sky-biometry`;
     const jsonResponse = await postPhoto(skyBioUrl, imageBlob);
-    const firstPhoto = jsonResponse.photos[0];
+
+    if (!jsonResponse.smileUrl) {
+      result.error = 'Mouth not found';
+      return result;
+    }
+
+    result.smileUrl = jsonResponse.smileUrl;
+
+    const firstPhoto = jsonResponse.externalServiceResponse.photos[0];
     result.originalImageUrl = firstPhoto.url;
 
     if (firstPhoto.tags.length === 0) {

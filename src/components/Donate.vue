@@ -57,7 +57,8 @@ export default {
         this.serviceResults.attributes.mood.value;
     },
     donationImageUrl() {
-      return this.serviceResults && this.serviceResults.originalImageUrl;
+      return this.serviceResults && this.serviceResults.smileUrl &&
+        `${process.env.API_BASE_URL}/${this.serviceResults.smileUrl}`;
     },
     successMessage() {
       return (this.serviceResults && this.donationMood) ? `${this.donationMood} smile donated!` : null;

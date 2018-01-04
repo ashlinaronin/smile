@@ -32,19 +32,24 @@ router.post('/sky-biometry', uploader, async ctx => {
       body: formData
     });
 
+    const composedResponse = {
+      externalServiceResponse: null,
+      smileUrl: null
+    };
+
     if (response.ok) {
-      const jsonResponse = await response.json();
+      composedResponse.externalServiceResponse = await response.json();
       const userId = await persistence.createNewDonor();
-      const donation = await persistence.addSmileToDonor(userId, jsonResponse);
+      const donation = await persistence.addSmileToDonor(userId, composedResponse.externalServiceResponse);
 
       try {
-        await faceChopper.saveSmilesFromDonation(donation);
+        composedResponse.smileUrl = await faceChopper.saveSmilesFromDonation(donation);
       }
       catch (err) {
         console.warn('FaceChopper error, swallowing:', err);
       }
 
-      ctx.body = jsonResponse;
+      ctx.body = composedResponse;
     } else {
       ctx.throw(500, 'SkyBiometry: error uploading face');
     }

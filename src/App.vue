@@ -46,6 +46,7 @@ body {
 header {
   display: flex;
   justify-content: space-between;
+  border-bottom: 1px solid $light-grey;
 }
 
 p, li {
@@ -63,6 +64,7 @@ p, li {
   text-decoration: none;
   padding: 8px 16px;
   transition: all ease-out 0.1s;
+  cursor: pointer;
 
   &:hover {
     background: $black;

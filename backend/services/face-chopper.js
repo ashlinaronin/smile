@@ -29,7 +29,8 @@ async function saveSmilesFromDonation(donation) {
 
     donation.smileImageUrl = output;
     await donation.save();
-    console.log('FaceChopper: Saved smile with image URL');
+    console.log('FaceChopper: Saved smile with image URL', donation.smileImageUrl);
+    return donation.smileImageUrl;
   }
   catch (err) {
     console.error('FaceChopper: Error extracting smile from image:', err);
