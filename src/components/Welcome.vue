@@ -7,10 +7,10 @@
       <li>Repeat as many times as necessary</li>
       <li>Check out the other smiles outside!</li>
     </ol>
-    <p>When you're ready to start press the button below.</p>
+    <p>When you're ready to start press the <strong>I'm ready</strong> button below.</p>
     <router-link class="button" to="donate">I'm ready</router-link>
     <div class="fine-print">
-      <small>*Happy, sad, surprised, angry, confused and disgusted smiles are accepted.</small>
+      <small>*Happy, surprised, angry, confused and disgusted smiles are accepted.</small>
     </div>
   </div>
 </template>
@@ -31,9 +31,20 @@
 <style lang="scss" scoped>
   .welcome {
     padding: 20px;
+    width: 400px;
+    margin: 0 auto;
+    text-align: left;
+
+    ol {
+      margin-left: -2.5em;
+      padding-left: 1em;
+    }
+    li {
+      padding-left: 1em;
+    }
 
     .fine-print {
-      margin-top: 100px;
+      margin-top: 40px;
     }
   }
 </style>

@@ -49,8 +49,28 @@ header {
   border-bottom: 1px solid $light-grey;
 }
 
+h1 {
+  font-size: 4em;
+}
+
+h2 {
+  font-size: 2.666em;
+}
+
+h3 {
+  font-size: 2em;
+}
+
+h4 {
+  font-size: 2em;
+}
+
+h5 {
+  font-size: 1.5em;
+}
+
 p, li {
-  font-size: 22px;
+  font-size: 1.5em;
 }
 
 .button, button {
