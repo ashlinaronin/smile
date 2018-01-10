@@ -30,7 +30,7 @@
       display: flex;
       margin: auto auto;
       padding: 2px;
-      line-height: 100px;
+      line-height: 140px;
     }
 
     > div:nth-child(1) {
