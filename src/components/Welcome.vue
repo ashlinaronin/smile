@@ -31,16 +31,16 @@
 <style lang="scss" scoped>
   .welcome {
     padding: 20px;
-    width: 400px;
+    width: 50vw;
     margin: 0 auto;
     text-align: left;
 
     ol {
-      margin-left: -2.5em;
-      padding-left: 1em;
+      margin-left: -2.5vh;
+      padding-left: 1vh;
     }
     li {
-      padding-left: 1em;
+      padding-left: 1.5vh;
     }
 
     .fine-print {

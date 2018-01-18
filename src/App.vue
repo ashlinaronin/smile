@@ -50,27 +50,31 @@ header {
 }
 
 h1 {
-  font-size: 4em;
+  font-size: 4vh;
 }
 
 h2 {
-  font-size: 2.666em;
+  font-size: 2.666vh;
 }
 
 h3 {
-  font-size: 2em;
+  font-size: 2vh;
 }
 
 h4 {
-  font-size: 2em;
+  font-size: 2vh;
 }
 
 h5 {
-  font-size: 1.5em;
+  font-size: 1.5vh;
 }
 
 p, li {
-  font-size: 1.5em;
+  font-size: 2vh;
+}
+
+small {
+  font-size: 1.5vh;
 }
 
 .button, button {
@@ -78,17 +82,27 @@ p, li {
   display: inline-block;
   margin: 40px 0;
   font-size: 26px;
-  background: $light-grey;
-  color: $black;
+  background: $white;
   border: 1px solid $black;
   text-decoration: none;
-  padding: 8px 16px;
   transition: all ease-out 0.1s;
   cursor: pointer;
+  border-radius: 0;
+  box-shadow: 0 3px 6px #666666;
+  color: #ebebeb;
+  background: #c43227;
+  padding: 10px 20px 10px 20px;
+
 
   &:hover {
-    background: $black;
-    color: $white;
+    background: #c43227;
+    background-image: linear-gradient(to bottom, #c43227, #d93476);
+  }
+
+  &:disabled, &.is-disabled {
+    background: orange;
+    pointer-events: none;
+    cursor: not-allowed;
   }
 }
 </style>

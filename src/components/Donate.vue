@@ -3,20 +3,29 @@
     <div class="ui__webcam">
       <video ref="video" autoplay playsinline></video>
     </div>
-    <div>
+    <div class="ui__button-results-container">
       <div class="ui__button">
-        <button v-if="!processing" v-on:click="checkEmotions" v-focus="true">donate smile</button>
-        <router-link v-if="!processing" class="button" to="thank-you">i'm done</router-link>
-        <div v-if="processing">processing donation...</div>
+        <button :disabled="processing"
+                :class="{'is-disabled': processing}"
+                class="primary"
+                v-on:click="checkEmotions"
+                v-focus="true">
+          <span v-if="processing">...</span>
+          <span v-if="!processing">📷 donate</span>
+        </button>
+        <router-link :disabled="processing"
+                     :class="{'is-disabled': processing}"
+                     class="button secondary"
+                     to="thank-you">👋 done</router-link>
       </div>
-      <div class="ui__results" v-if="serviceResults">
+      <div class="ui__results">
         <div>
           <h4>Donation results</h4>
-          <img :src="donationImageUrl" />
+          <img :src="donationImageUrl" v-show="donationImageUrl" />
         </div>
         <div>
-          <p v-if="errorMessage"><strong>Error</strong>: {{ errorMessage }}. Please try again!</p>
-          <p v-if="!errorMessage"><strong>Success</strong>: {{ successMessage }}</p>
+          <p v-show="errorMessage"><strong>Error</strong>: {{ errorMessage }}. Please try again!</p>
+          <p v-show="!errorMessage && successMessage"><strong>Success</strong>: {{ successMessage }}</p>
         </div>
       </div>
     </div>
@@ -154,8 +163,28 @@ export default {
     font-size: 24px;
 
     .ui__webcam {
+
       video {
+        width: 70%;
+        padding: 2vh;
+      }
+    }
+
+    .ui__button-results-container {
+      width: 70%;
+      padding: 2vh;
+      display: flex;
+      margin: 0 auto;
+    }
+
+    .ui__button {
+      display: flex;
+      flex-direction: row;
+      flex-basis: 50%;
+
+      > button, a {
         width: 100%;
+        margin: 0 4px 0 0;
       }
     }
 
@@ -163,6 +192,7 @@ export default {
       background-color: $light-pink;
       border: 1px solid $light-grey;
       display: flex;
+      width: 100%;
 
       > div {
         flex: 1;
