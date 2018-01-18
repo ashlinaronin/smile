@@ -80,7 +80,6 @@ small {
 .button, button {
   font-family: $main-body-font;
   display: inline-block;
-  margin: 40px 0;
   font-size: 26px;
   background: $white;
   border: 1px solid $black;
@@ -100,7 +99,7 @@ small {
   }
 
   &:disabled, &.is-disabled {
-    background: orange;
+    background: lighten(#c43227, 30%);
     pointer-events: none;
     cursor: not-allowed;
   }

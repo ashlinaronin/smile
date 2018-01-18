@@ -4,6 +4,17 @@
       <video ref="video" autoplay playsinline></video>
     </div>
     <div class="ui__button-results-container">
+      <div class="ui__results">
+        <div>
+          <h2>Donation results</h2>
+          <img src="donationImageUrl" alt="donation" />
+        </div>
+        <div>
+          <p v-show="processing">Processing...</p>
+          <p v-show="errorMessage"><strong>Error</strong>: {{ errorMessage }}. Please try again!</p>
+          <p v-show="!errorMessage && successMessage"><strong>Success</strong>: {{ successMessage }}</p>
+        </div>
+      </div>
       <div class="ui__button">
         <button :disabled="processing"
                 :class="{'is-disabled': processing}"
@@ -17,16 +28,6 @@
                      :class="{'is-disabled': processing}"
                      class="button secondary"
                      to="thank-you">👋 done</router-link>
-      </div>
-      <div class="ui__results">
-        <div>
-          <h4>Donation results</h4>
-          <img :src="donationImageUrl" v-show="donationImageUrl" />
-        </div>
-        <div>
-          <p v-show="errorMessage"><strong>Error</strong>: {{ errorMessage }}. Please try again!</p>
-          <p v-show="!errorMessage && successMessage"><strong>Success</strong>: {{ successMessage }}</p>
-        </div>
       </div>
     </div>
 
@@ -163,34 +164,47 @@ export default {
     font-size: 24px;
 
     .ui__webcam {
-
+      width: 70vw;
+      margin: 0 auto;
       video {
-        width: 70%;
-        padding: 2vh;
+        width: 100%;
+        margin-top: 2vh;
+        object-fit: fill;
       }
     }
 
     .ui__button-results-container {
       width: 70%;
-      padding: 2vh;
       display: flex;
+      flex-direction: column;
       margin: 0 auto;
     }
 
     .ui__button {
       display: flex;
       flex-direction: row;
-      flex-basis: 50%;
+      justify-content: space-between;
+      margin-top: 8px;
+      width: 100%;
 
-      > button, a {
+      > button, > a {
         width: 100%;
-        margin: 0 4px 0 0;
       }
+
+      > button {
+        margin-right: 8px;
+      }
+
+      > a {
+        margin-left: 8px;
+      }
+
     }
 
     .ui__results {
       background-color: $light-pink;
       border: 1px solid $light-grey;
+      height: 180px;
       display: flex;
       width: 100%;
 
@@ -204,7 +218,10 @@ export default {
       }
 
       img {
-        width: 100px;
+        width: 200px;
+        min-width: 200px;
+        min-height: 88px;
+        border: 1px solid $light-grey;
       }
     }
 
