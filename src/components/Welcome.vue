@@ -29,11 +29,10 @@
 </script>
 
 <style lang="scss" scoped>
+  @import "../styles/settings";
+
   .welcome {
-    padding: 20px;
-    width: 50vw;
-    margin: 0 auto;
-    text-align: left;
+    @include container();
 
     ol {
       margin-left: -2.5vh;

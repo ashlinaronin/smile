@@ -14,4 +14,9 @@ $light-pink: #f1eaea;
 $header-font: 'Monofett', Verdana, sans-serif;
 $main-body-font: 'Work Sans', Arial, sans-serif;
 
-
+@mixin container() {
+  padding: 20px;
+  width: 50vw;
+  margin: 0 auto;
+  text-align: left;
+}
