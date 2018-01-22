@@ -1,10 +1,13 @@
 <template>
   <div class="all-smiles" ref="smiles" id="test">
-    <ul>
-      <li v-for="smile in allSmiles" v-if="smile.mood" class="smile__container">
+    <transition-group name="smile-list" tag="ul">
+      <li v-for="smile in allSmiles"
+          v-if="smile.mood"
+          :key="smile.smileImageUrl"
+          class="smile__container">
         <img :src="imageUrl(smile)">
       </li>
-    </ul>
+    </transition-group>
   </div>
 </template>
 
@@ -39,9 +42,21 @@
       },
       async refreshSmiles() {
         this.allSmiles = await getAllSmiles();
+        this.randomizeSmileOrder();
       },
       startFetchInterval() {
         this.fetchIntervalId = setInterval(this.refreshSmiles, FETCH_INTERVAL_MS);
+      },
+      randomizeSmileOrder() {
+        this.shuffleArray(this.allSmiles);
+      },
+      shuffleArray(array) {
+        // from https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+        /* eslint-disable */
+        for (let i = array.length - 1; i > 0; i -= 1) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
       },
     },
   };
@@ -66,6 +81,10 @@
         width: 100%;
         height: 100%;
       }
+    }
+
+    .smile-list-move {
+      transition: transform 1s;
     }
   }
 </style>
