@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <header>
+    <header v-if="showHeader">
       <logo-link></logo-link>
       <donation-progress v-if="showProgress"></donation-progress>
     </header>
@@ -19,6 +19,9 @@ export default {
   computed: {
     showProgress() {
       return this.$route.name === 'Donate';
+    },
+    showHeader() {
+      return this.$route.name !== 'AllSmiles' && this.$route.name !== 'OneSmile';
     },
   },
   components: {
