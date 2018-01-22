@@ -15,7 +15,7 @@
   import maptasticMixin from '@/mixins/maptasticMixin';
   import getAllSmiles from 'services/display';
 
-  const FETCH_INTERVAL_MS = 5000;
+  const FETCH_INTERVAL_MS = 10000;
 
   export default {
     name: 'all-smiles',
