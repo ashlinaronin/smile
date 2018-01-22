@@ -26,9 +26,12 @@
     created() {
       this.refreshSmiles();
       this.startFetchInterval();
+
+      document.body.classList.add('presentation-mode');
     },
     beforeDestroy() {
       clearInterval(this.fetchIntervalId);
+      document.body.classList.remove('presentation-mode');
     },
     methods: {
       imageUrl(smile) {

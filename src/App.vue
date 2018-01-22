@@ -36,6 +36,10 @@ export default {
 
 body {
   margin: 0;
+
+  &.presentation-mode {
+    overflow: hidden;
+  }
 }
 
 #app {
