@@ -7,7 +7,10 @@
       <div class="ui__results">
         <div>
           <h2>Donation results</h2>
-          <img src="donationImageUrl" alt="donation" />
+          <div class="ui__donation-placeholder" v-if="!donationImageUrl">
+            donation
+          </div>
+          <img class="ui__donation" v-if="donationImageUrl" :src="donationImageUrl" alt="donation" />
         </div>
         <div>
           <p v-show="processing">Processing...</p>
@@ -217,7 +220,14 @@ export default {
         list-style: none;
       }
 
-      img {
+      .ui__donation-placeholder {
+        margin: 0 auto;
+        border: 1px solid $light-grey;
+        width: 200px;
+        height: 88px;
+      }
+
+      .ui__donation {
         width: 200px;
         min-width: 200px;
         min-height: 88px;
