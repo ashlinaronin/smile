@@ -46,7 +46,7 @@
 
 <style lang="scss" scoped>
   .all-smiles {
-    width: 100vw;
+    width: 100%;
 
     ul {
       list-style-type: none;

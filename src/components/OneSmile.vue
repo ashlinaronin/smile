@@ -47,7 +47,7 @@
 
 <style lang="scss" scoped>
   .one-smile {
-    width: 100vw;
+    width: 100%;
 
     img {
       width: 100%;
