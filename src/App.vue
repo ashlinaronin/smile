@@ -57,11 +57,12 @@ header {
 }
 
 h1 {
-  font-size: 4vh;
+  font-size: 6vh;
 }
 
 h2 {
   font-size: 2.666vh;
+  letter-spacing: 2px;
 }
 
 h3 {
@@ -77,7 +78,7 @@ h5 {
 }
 
 p, li {
-  font-size: 2vh;
+  font-size: 3vh;
 }
 
 small {
@@ -86,8 +87,10 @@ small {
 
 .button, button {
   font-family: $main-body-font;
+  text-transform: uppercase;
   display: inline-block;
   font-size: 26px;
+  letter-spacing: 1px;
   background: $white;
   border: 1px solid $black;
   text-decoration: none;

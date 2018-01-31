@@ -8,9 +8,6 @@
         <div>
           {{ textProgressMessage }}
         </div>
-        <div>
-          <router-link class="button" to="thank-you">i'm done</router-link>
-        </div>
       </div>
     </div>
   </div>

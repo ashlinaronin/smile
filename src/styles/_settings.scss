@@ -9,10 +9,10 @@ $light-pink: #f1eaea;
 
 
 // Typography
-@import url('https://fonts.googleapis.com/css?family=Monofett|Work+Sans');
+@import url('https://fonts.googleapis.com/css?family=Monofett|Sarala:700');
 
 $header-font: 'Monofett', Verdana, sans-serif;
-$main-body-font: 'Work Sans', Arial, sans-serif;
+$main-body-font: 'Sarala', Arial, sans-serif;
 
 @mixin container() {
   padding: 20px;

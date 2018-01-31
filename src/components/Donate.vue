@@ -4,13 +4,9 @@
       <video ref="video" autoplay playsinline></video>
     </div>
     <div class="ui__button-results-container">
-      <div class="ui__results">
-        <div class="ui__results-panel">
-          <h2>RESULTS</h2>
-          <img class="ui__donation-placeholder" v-if="!donationImageUrl" src="static/face-placeholder.gif"/>
-          <img class="ui__donation" v-if="donationImageUrl" :src="donationImageUrl" alt="donation" />
-        </div>
-        <div class="ui__results-panel">
+      <div class="ui__results"  v-if="successMessage || errorMessage">
+        <img class="ui__donation" v-if="donationImageUrl" :src="donationImageUrl" alt="donation" />
+        <div class="ui__results-overlay">
           <div>
             <h2 v-if="errorMessage">
               <strong>ERROR</strong>
@@ -37,7 +33,7 @@
                 v-on:click="checkEmotions"
                 v-focus="true">
           <span v-if="processing">...</span>
-          <span v-if="!processing">📷 donate smile</span>
+          <span v-if="!processing">📷 Donate Smile</span>
         </button>
       </div>
     </div>
@@ -204,21 +200,11 @@ export default {
       > button, > a {
         width: 100%;
       }
-
-      /*> button {*/
-        /*margin-right: 8px;*/
-      /*}*/
-
-      /*> a {*/
-        /*margin-left: 8px;*/
-      /*}*/
-
     }
 
     .ui__results {
-      background-color: $light-grey;
-      //border: 1px solid $light-grey;
-      height: 180px;
+      background-color: #ececec;
+      height: 200px;
       display: flex;
       width: 100%;
 
@@ -234,20 +220,34 @@ export default {
 
     .ui__donation-placeholder {
       margin: 0 auto;
-      //border: 1px solid $light-grey;
       width: 200px;
       height: 88px;
     }
 
     .ui__donation {
-      width: 200px;
-      min-width: 200px;
-      min-height: 88px;
+      width: 100%;
     }
 
     .ui__results-panel {
-      &:nth-child(2) {
-        border-left: 1px solid $light-grey;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ui__results-overlay {
+      position: absolute;
+      width: 70vw;
+      text-align: center;
+      margin: 0 auto;
+      color: white;
+
+      > h2 {
+        margin-bottom: 0;
+      }
+
+      > div {
+        text-align: center;
+        margin: 0 auto;
+        max-width: 50%;
       }
     }
 
