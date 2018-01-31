@@ -95,8 +95,8 @@ small {
   cursor: pointer;
   border-radius: 0;
   box-shadow: 0 3px 6px #666666;
-  color: #ebebeb;
-  background: #c43227;
+  color: $black;
+  background: #ffb700;
   padding: 10px 20px 10px 20px;
 
 

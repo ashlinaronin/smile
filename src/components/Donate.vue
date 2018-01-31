@@ -5,17 +5,29 @@
     </div>
     <div class="ui__button-results-container">
       <div class="ui__results">
-        <div>
-          <h2>Donation results</h2>
-          <div class="ui__donation-placeholder" v-if="!donationImageUrl">
-            donation
-          </div>
+        <div class="ui__results-panel">
+          <h2>RESULTS</h2>
+          <img class="ui__donation-placeholder" v-if="!donationImageUrl" src="static/face-placeholder.gif"/>
           <img class="ui__donation" v-if="donationImageUrl" :src="donationImageUrl" alt="donation" />
         </div>
-        <div>
-          <p v-show="processing">Processing...</p>
-          <p v-show="errorMessage"><strong>Error</strong>: {{ errorMessage }}. Please try again!</p>
-          <p v-show="!errorMessage && successMessage"><strong>Success</strong>: {{ successMessage }}</p>
+        <div class="ui__results-panel">
+          <div>
+            <h2 v-if="errorMessage">
+              <strong>ERROR</strong>
+            </h2>
+            <h2 v-if="!errorMessage && successMessage">
+              <strong>SUCCESS</strong>
+            </h2>
+          </div>
+          <div>
+            <h2 v-show="processing">PROCESSING...</h2>
+            <span v-show="errorMessage">
+              {{ errorMessage }}. Please try again!
+            </span>
+            <span v-show="!errorMessage && successMessage">
+              {{ successMessage }}
+            </span>
+          </div>
         </div>
       </div>
       <div class="ui__button">
@@ -25,12 +37,8 @@
                 v-on:click="checkEmotions"
                 v-focus="true">
           <span v-if="processing">...</span>
-          <span v-if="!processing">📷 donate</span>
+          <span v-if="!processing">📷 donate smile</span>
         </button>
-        <router-link :disabled="processing"
-                     :class="{'is-disabled': processing}"
-                     class="button secondary"
-                     to="thank-you">👋 done</router-link>
       </div>
     </div>
 
@@ -197,19 +205,19 @@ export default {
         width: 100%;
       }
 
-      > button {
-        margin-right: 8px;
-      }
+      /*> button {*/
+        /*margin-right: 8px;*/
+      /*}*/
 
-      > a {
-        margin-left: 8px;
-      }
+      /*> a {*/
+        /*margin-left: 8px;*/
+      /*}*/
 
     }
 
     .ui__results {
-      background-color: $light-pink;
-      border: 1px solid $light-grey;
+      background-color: $light-grey;
+      //border: 1px solid $light-grey;
       height: 180px;
       display: flex;
       width: 100%;
@@ -222,19 +230,24 @@ export default {
       ul {
         list-style: none;
       }
+    }
 
-      .ui__donation-placeholder {
-        margin: 0 auto;
-        border: 1px solid $light-grey;
-        width: 200px;
-        height: 88px;
-      }
+    .ui__donation-placeholder {
+      margin: 0 auto;
+      //border: 1px solid $light-grey;
+      width: 200px;
+      height: 88px;
+    }
 
-      .ui__donation {
-        width: 200px;
-        min-width: 200px;
-        min-height: 88px;
-        border: 1px solid $light-grey;
+    .ui__donation {
+      width: 200px;
+      min-width: 200px;
+      min-height: 88px;
+    }
+
+    .ui__results-panel {
+      &:nth-child(2) {
+        border-left: 1px solid $light-grey;
       }
     }
 

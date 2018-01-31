@@ -5,7 +5,12 @@
         {{ emojiProgressMessage }}
       </div>
       <div class="ui__progress-text">
-        {{ textProgressMessage }}
+        <div>
+          {{ textProgressMessage }}
+        </div>
+        <div>
+          <router-link class="button" to="thank-you">i'm done</router-link>
+        </div>
       </div>
     </div>
   </div>
