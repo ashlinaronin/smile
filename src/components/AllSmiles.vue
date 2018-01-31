@@ -42,7 +42,7 @@
       },
       async refreshSmiles() {
         this.allSmiles = await getAllSmiles();
-        this.randomizeSmileOrder();
+//        this.randomizeSmileOrder();
       },
       startFetchInterval() {
         this.fetchIntervalId = setInterval(this.refreshSmiles, FETCH_INTERVAL_MS);
