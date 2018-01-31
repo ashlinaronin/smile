@@ -47,24 +47,24 @@
   @import '../styles/settings';
 
   .ui__progress-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
+    margin-top: 10px;
+    width: 70vw;
   }
 
   .ui__progress {
-    display: flex;
+    width: 100%;
     color: white;
-    flex-direction: column;
-    align-items: flex-end;
+    display: flex;
 
     > div {
-      width: 100%;
-      flex-basis: 100%;
+      flex-basis: 50%;
       border: 1px solid $light-grey;
       background: $black;
       text-align: center;
       padding: 4px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 

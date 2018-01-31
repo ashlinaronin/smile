@@ -4,28 +4,30 @@
       <video ref="video" autoplay playsinline></video>
     </div>
     <div class="ui__button-results-container">
-      <div class="ui__results"  v-if="successMessage || errorMessage">
-        <img class="ui__donation" v-if="donationImageUrl" :src="donationImageUrl" alt="donation" />
-        <div class="ui__results-overlay">
-          <div>
-            <h2 v-if="errorMessage">
-              <strong>ERROR</strong>
-            </h2>
-            <h2 v-if="!errorMessage && successMessage">
-              <strong>SUCCESS</strong>
-            </h2>
-          </div>
-          <div>
-            <h2 v-show="processing">PROCESSING...</h2>
-            <span v-show="errorMessage">
+      <transition name="results-expand" mode="out-in">
+        <div class="ui__results"  v-show="successMessage || errorMessage">
+          <img class="ui__donation" v-if="donationImageUrl" :src="donationImageUrl" alt="donation" />
+          <div class="ui__results-overlay">
+            <div>
+              <h2 v-if="errorMessage">
+                <strong>ERROR</strong>
+              </h2>
+              <h2 v-if="!errorMessage && successMessage">
+                <strong>SUCCESS</strong>
+              </h2>
+            </div>
+            <div>
+              <h2 v-show="processing">PROCESSING...</h2>
+              <span v-show="errorMessage">
               {{ errorMessage }}. Please try again!
             </span>
-            <span v-show="!errorMessage && successMessage">
+              <span v-show="!errorMessage && successMessage">
               {{ successMessage }}
             </span>
+            </div>
           </div>
         </div>
-      </div>
+      </transition>
       <div class="ui__button">
         <button :disabled="processing"
                 :class="{'is-disabled': processing}"
@@ -36,6 +38,7 @@
           <span v-if="!processing">📷 Donate Smile</span>
         </button>
       </div>
+      <donation-progress></donation-progress>
     </div>
 
     <div class="canvas">
@@ -45,6 +48,7 @@
 </template>
 
 <script>
+import DonationProgress from '@/components/DonationProgress';
 import VueFocus from 'vue-focus';
 import getEmotions from 'services/emotion-detection';
 import store from '@/store';
@@ -56,6 +60,9 @@ const MAX_DONATIONS = 3;
 export default {
   store,
   name: 'donate',
+  components: {
+    DonationProgress,
+  },
   data() {
     return {
       processing: false,
@@ -203,7 +210,7 @@ export default {
     }
 
     .ui__results {
-      background-color: #ececec;
+      background-color: #9a9a9a;
       height: 200px;
       display: flex;
       width: 100%;
@@ -253,6 +260,17 @@ export default {
 
     .canvas {
       display: none;
+    }
+
+    .results-expand-enter-active {
+      transition: all .3s ease;
+    }
+    .results-expand-leave-active {
+      transition: all .1s ease-out;
+    }
+    .results-expand-enter, .results-expand-leave-to {
+      height: 0;
+      opacity: 0;
     }
   }
 </style>

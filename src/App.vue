@@ -2,7 +2,6 @@
   <div id="app">
     <header v-if="showHeader">
       <logo-link></logo-link>
-      <donation-progress v-if="showProgress"></donation-progress>
     </header>
     <main>
       <router-view></router-view>
@@ -11,21 +10,16 @@
 </template>
 
 <script>
-import DonationProgress from '@/components/DonationProgress';
 import LogoLink from '@/components/LogoLink';
 
 export default {
   name: 'app',
   computed: {
-    showProgress() {
-      return this.$route.name === 'Donate';
-    },
     showHeader() {
       return this.$route.name !== 'AllSmiles' && this.$route.name !== 'OneSmile';
     },
   },
   components: {
-    DonationProgress,
     LogoLink,
   },
 };
