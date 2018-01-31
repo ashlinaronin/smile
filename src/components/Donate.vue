@@ -86,7 +86,9 @@ export default {
         `${process.env.API_BASE_URL}/${this.serviceResults.smileUrl}`;
     },
     successMessage() {
-      return (this.serviceResults && this.donationMood) ? `${this.donationMood} smile donated!` : null;
+      return (this.serviceResults && this.donationMood) ?
+        this.uppercaseFirstLetter(`${this.donationMood} smile donated!`) :
+        null;
     },
     smilesDonated() {
       return this.$store.state.smilesDonated;
@@ -163,6 +165,9 @@ export default {
       if (this.$refs.video.readyState === this.$refs.video.HAVE_ENOUGH_DATA) {
         this.context.drawImage(this.$refs.video, 0, 0);
       }
+    },
+    uppercaseFirstLetter(string) {
+      return string.charAt(0).toUpperCase() + string.substr(1);
     },
   },
   watch: {
@@ -250,7 +255,7 @@ export default {
       color: white;
 
       > h2 {
-        margin-bottom: 0;
+        margin: 10px;
       }
 
       > div {
