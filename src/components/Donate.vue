@@ -80,6 +80,9 @@ export default {
       return this.$store.state.smilesDonated;
     },
   },
+  created() {
+    this.$store.commit(mutations.RESET_DONATIONS);
+  },
   mounted() {
     this.initializeWebcam();
     this.context = this.$refs.canvas.getContext('2d');
@@ -139,7 +142,7 @@ export default {
       this.processing = false;
 
       if (!this.errorMessage) {
-        this.$store.commit(mutations.DONATE_SMILE);
+        this.$store.commit(mutations.DONATE_SMILE, { smileImageUrl: this.donationImageUrl });
       }
 
       this.$refs.video.play();
