@@ -17,7 +17,6 @@
               </h2>
             </div>
             <div>
-              <h2 v-show="processing">PROCESSING...</h2>
               <span v-show="errorMessage">
               {{ errorMessage }}. Please try again!
             </span>
@@ -34,7 +33,7 @@
                 class="primary"
                 v-on:click="checkEmotions"
                 v-focus="true">
-          <span v-if="processing">...</span>
+          <loading-spinner v-if="processing"></loading-spinner>
           <span v-if="!processing">📷 Donate Smile</span>
         </button>
       </div>
@@ -49,6 +48,7 @@
 
 <script>
 import DonationProgress from '@/components/DonationProgress';
+import LoadingSpinner from '@/components/LoadingSpinner';
 import VueFocus from 'vue-focus';
 import getEmotions from 'services/emotion-detection';
 import store from '@/store';
@@ -62,6 +62,7 @@ export default {
   name: 'donate',
   components: {
     DonationProgress,
+    LoadingSpinner,
   },
   data() {
     return {
