@@ -136,9 +136,9 @@ export default {
   @import '../styles/settings';
 
   .smile {
+    @include container();
+    
     font-size: 24px;
-    width: $container-width;
-    margin: 0 auto;
 
     .ui__webcam {
       width: 100%;
