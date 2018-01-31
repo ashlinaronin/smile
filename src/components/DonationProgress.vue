@@ -58,13 +58,20 @@
 
     > div {
       flex-basis: 50%;
-      border: 1px solid $light-grey;
       background: $black;
       text-align: center;
       padding: 4px;
       display: flex;
       justify-content: center;
       align-items: center;
+    }
+
+    > div:nth-child(1) {
+      margin-right: 4px;
+    }
+
+    > div:nth-child(2) {
+      margin-left: 4px;
     }
   }
 
