@@ -34,6 +34,10 @@
     ul {
       padding: 0;
       list-style-type: none;
+
+      img {
+        width: 100%;
+      }
     }
   }
 </style>

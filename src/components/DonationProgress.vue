@@ -37,7 +37,7 @@
       },
       textProgressMessage() {
         const smilePluralization = (this.smilesDonated === 1) ? 'smile' : 'smiles';
-        return `${this.smilesDonated} ${smilePluralization} donated!`;
+        return `${this.smilesDonated} ${smilePluralization} donated`;
       },
     },
   };
@@ -48,7 +48,7 @@
 
   .ui__progress-container {
     margin-top: 10px;
-    width: 70vw;
+    width: 100%;
   }
 
   .ui__progress {

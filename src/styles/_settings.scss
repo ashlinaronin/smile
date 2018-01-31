@@ -13,10 +13,11 @@ $light-pink: #f1eaea;
 
 $header-font: 'Monofett', Verdana, sans-serif;
 $main-body-font: 'Sarala', Arial, sans-serif;
+$container-width: 460px;
 
 @mixin container() {
   padding: 20px;
-  width: 50vw;
+  width: $container-width;
   margin: 0 auto;
   text-align: left;
 }

@@ -180,9 +180,11 @@ export default {
 
   .smile {
     font-size: 24px;
+    width: $container-width;
+    margin: 0 auto;
 
     .ui__webcam {
-      width: 70vw;
+      width: 100%;
       margin: 0 auto;
       video {
         width: 100%;
@@ -192,7 +194,6 @@ export default {
     }
 
     .ui__button-results-container {
-      width: 70%;
       display: flex;
       flex-direction: column;
       margin: 0 auto;
@@ -243,7 +244,7 @@ export default {
 
     .ui__results-overlay {
       position: absolute;
-      width: 70vw;
+      width: $container-width;
       text-align: center;
       margin: 0 auto;
       color: white;
