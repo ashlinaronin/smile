@@ -54,19 +54,29 @@
 <style lang="scss" scoped>
   .all-smiles {
     width: 100%;
+    height: 400px;
 
     ul {
       list-style-type: none;
       display: flex;
+      flex-direction: column;
       flex-wrap: wrap;
       margin: 0;
       padding: 0;
+      height: 100vh;
     }
 
     .smile__container {
-      flex-basis: 20%;
-      transition: all 5s;
+      border: 1px red dashed;
+      flex-basis: 12.3%;
+      height: 12.3%;
+      width: 20%;
+      transition: all 1s ease-out;
+      left: 0;
+      top: 0;
+      transform: translate3d(0, 0, 0) scale(1.0);
       z-index: 0;
+      opacity: 1;
 
       img {
         width: 100%;
@@ -75,16 +85,20 @@
     }
 
     .smile-list-enter, .smile-list-leave-to {
-      transition: all 5s;
+      opacity: 0;
+      transform: translate3d(100px, 100px, 0) scale(1.0);
+      position: absolute;
+      z-index: 0;
     }
 
     .smile-list-enter-active {
-      z-index: 99;
-      transform: scale(4.0) translateY(100px) translateX(100px);
+      opacity: 1;
+      position: absolute;
+      transform: translate3d(100px, 100px, 0) scale(4.0);
+      z-index: 3;
     }
 
     .smile-list-leave-active {
-      position: absolute;
     }
 
   }
