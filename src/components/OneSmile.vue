@@ -6,7 +6,7 @@
 
 <script>
   import maptasticMixin from '@/mixins/maptasticMixin';
-  import getAllSmiles from 'services/display';
+  import { getNewSmiles } from 'services/display';
 
   const FETCH_INTERVAL_MS = 5000;
 
@@ -36,7 +36,7 @@
         return `${process.env.API_BASE_URL}/${smile.smileImageUrl}`;
       },
       async refreshSmiles() {
-        this.allSmiles = await getAllSmiles();
+        this.allSmiles = await getNewSmiles();
       },
       startFetchInterval() {
         this.fetchIntervalId = setInterval(this.refreshSmiles, FETCH_INTERVAL_MS);

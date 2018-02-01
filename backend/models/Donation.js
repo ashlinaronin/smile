@@ -17,7 +17,7 @@ let DonationSchema = new mongoose.Schema({
   imageTotalWidth: { type: Number, default: null },
   imageTotalHeight: { type: Number, default: null },
   rawResponse: mongoose.Schema.Types.Mixed
-});
+}, { timestamps: true });
 
 const Donation = mongoose.model('Donation', DonationSchema);
 module.exports = Donation;

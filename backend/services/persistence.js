@@ -39,12 +39,21 @@ async function getAllDonations() {
   return await Donation.find();
 }
 
-async function getSmiles() {
+async function getAllSmiles() {
   return await Donation.find({
     facePresent: true,
     isSmiling: true,
     smileImageUrl: { $ne: null }
-  });
+  }).sort({ createdAt: 'desc' });
+}
+
+async function getNewSmiles(timestamp) {
+  return await Donation.find({
+    facePresent: true,
+    isSmiling: true,
+    smileImageUrl: { $ne: null },
+    createdAt: { $gt: timestamp }
+  }).sort({ createdAt: 'desc' });
 }
 
 module.exports = {
@@ -52,5 +61,6 @@ module.exports = {
   createNewDonor,
   addSmileToDonor,
   getAllDonations,
-  getSmiles
+  getAllSmiles,
+  getNewSmiles
 };

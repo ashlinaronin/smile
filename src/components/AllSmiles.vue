@@ -13,7 +13,7 @@
 
 <script>
   import maptasticMixin from '@/mixins/maptasticMixin';
-  import getAllSmiles from 'services/display';
+  import { getAllSmiles, getNewSmiles } from 'services/display';
 
   const FETCH_INTERVAL_MS = 10000;
 
@@ -26,8 +26,8 @@
         fetchIntervalId: null,
       };
     },
-    created() {
-      this.refreshSmiles();
+    async created() {
+      this.allSmiles = await getAllSmiles();
       this.startFetchInterval();
 
       document.body.classList.add('presentation-mode');
@@ -41,22 +41,11 @@
         return `${process.env.API_BASE_URL}/${smile.smileImageUrl}`;
       },
       async refreshSmiles() {
-        this.allSmiles = await getAllSmiles();
-//        this.randomizeSmileOrder();
+        const newSmiles = await getNewSmiles();
+        this.allSmiles.unshift(...newSmiles);
       },
       startFetchInterval() {
         this.fetchIntervalId = setInterval(this.refreshSmiles, FETCH_INTERVAL_MS);
-      },
-      randomizeSmileOrder() {
-        this.shuffleArray(this.allSmiles);
-      },
-      shuffleArray(array) {
-        // from https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
-        /* eslint-disable */
-        for (let i = array.length - 1; i > 0; i -= 1) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [array[i], array[j]] = [array[j], array[i]];
-        }
       },
     },
   };
