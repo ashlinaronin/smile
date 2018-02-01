@@ -1,9 +1,17 @@
 <template>
   <div class="all-smiles" ref="smiles" id="test">
-    <transition-group name="smile-list" tag="ul">
-      <li v-for="smile in allSmiles"
+    <transition-group
+        name="smile-list"
+        tag="ul"
+        :css="false"
+        v-on:before-enter="beforeEnter"
+        v-on:after-enter="afterEnter"
+        v-on:enter="enter"
+        v-on:leave="leave">
+      <li v-for="(smile, index) in allSmiles"
           v-if="smile.mood"
           :key="smile.smileImageUrl"
+          :data-index="index"
           class="smile__container">
         <img :src="imageUrl(smile)">
       </li>
@@ -15,6 +23,7 @@
   import maptasticMixin from '@/mixins/maptasticMixin';
   import { getAllSmiles, getNewSmiles } from 'services/display';
 
+  const Velocity = window.Velocity;
   const FETCH_INTERVAL_MS = 1000;
 
   export default {
@@ -47,6 +56,34 @@
       startFetchInterval() {
         this.fetchIntervalId = setInterval(this.refreshSmiles, FETCH_INTERVAL_MS);
       },
+      beforeEnter(el) {
+        /* eslint-disable */
+        el.style.opacity = 0;
+        el.style.height = 0;
+      },
+      afterEnter(el) {
+
+      },
+      enter(el, done) {
+        const delay = el.dataset.index * 100;
+        setTimeout(() => {
+          Velocity(
+            el,
+            { opacity: 1 },
+            { complete: done },
+          )
+        }, delay);
+      },
+      leave(el, done) {
+        const delay = el.dataset.index * 100;
+        setTimeout(() => {
+          Velocity(
+            el,
+            { opacity: 0 },
+            { complete: done },
+          )
+        }, delay);
+      },
     },
   };
 </script>
@@ -67,38 +104,14 @@
     }
 
     .smile__container {
-      border: 1px red dashed;
       flex-basis: 12.3%;
       height: 12.3%;
       width: 20%;
-      transition: all 1s ease-out;
-      left: 0;
-      top: 0;
-      transform: translate3d(0, 0, 0) scale(1.0);
-      z-index: 0;
-      opacity: 1;
 
       img {
         width: 100%;
         height: 100%;
       }
-    }
-
-    .smile-list-enter, .smile-list-leave-to {
-      opacity: 0;
-      transform: translate3d(100px, 100px, 0) scale(1.0);
-      position: absolute;
-      z-index: 0;
-    }
-
-    .smile-list-enter-active {
-      opacity: 1;
-      position: absolute;
-      transform: translate3d(100px, 100px, 0) scale(4.0);
-      z-index: 3;
-    }
-
-    .smile-list-leave-active {
     }
 
   }
