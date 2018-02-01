@@ -15,7 +15,7 @@
   import maptasticMixin from '@/mixins/maptasticMixin';
   import { getAllSmiles, getNewSmiles } from 'services/display';
 
-  const FETCH_INTERVAL_MS = 10000;
+  const FETCH_INTERVAL_MS = 1000;
 
   export default {
     name: 'all-smiles',
@@ -65,6 +65,8 @@
 
     .smile__container {
       flex-basis: 20%;
+      transition: all 5s;
+      z-index: 0;
 
       img {
         width: 100%;
@@ -72,8 +74,18 @@
       }
     }
 
-    .smile-list-move {
-      transition: transform 1s;
+    .smile-list-enter, .smile-list-leave-to {
+      transition: all 5s;
     }
+
+    .smile-list-enter-active {
+      z-index: 99;
+      transform: scale(4.0) translateY(100px) translateX(100px);
+    }
+
+    .smile-list-leave-active {
+      position: absolute;
+    }
+
   }
 </style>
