@@ -1,46 +1,35 @@
-const ALL_SMILES_ERROR = 'Display: Error getting all smiles';
-const NEW_SMILES_ERROR = 'Display: Error getting new smiles';
+const SMILES_ERROR = 'Display: Error getting smiles';
 
 let lastSmileTimestamp;
 
-export async function getAllSmiles() {
+async function callSmileApi(smileApiUrl) {
   try {
-    const allSmilesUrl = `${process.env.API_BASE_URL}/display/all-smiles`;
-    const response = await fetch(allSmilesUrl);
+    const response = await fetch(smileApiUrl);
 
-    if (!response.ok) return Promise.reject(ALL_SMILES_ERROR);
+    if (!response.ok) return Promise.reject(SMILES_ERROR);
 
-    const allSmiles = await response.json();
+    const smiles = await response.json();
 
-    if (allSmiles.length > 0) {
-      lastSmileTimestamp = allSmiles[0].createdAt;
+    if (smiles.length > 0) {
+      lastSmileTimestamp = smiles[0].createdAt;
     }
 
-    return allSmiles;
+    return smiles;
   } catch (err) {
-    return Promise.reject(ALL_SMILES_ERROR, err);
+    return Promise.reject(SMILES_ERROR, err);
   }
 }
 
+export async function getAllSmiles() {
+  const allSmilesUrl = `${process.env.API_BASE_URL}/display/all-smiles`;
+  return callSmileApi(allSmilesUrl);
+}
+
 export async function getNewSmiles() {
-  try {
-    if (typeof lastSmileTimestamp === 'undefined') {
-      return getAllSmiles();
-    }
-
-    const newSmilesUrl = `${process.env.API_BASE_URL}/display/new-smiles/${lastSmileTimestamp}`;
-    const response = await fetch(newSmilesUrl);
-
-    if (!response.ok) return Promise.reject(NEW_SMILES_ERROR);
-
-    const allSmiles = await response.json();
-
-    if (allSmiles.length > 0) {
-      lastSmileTimestamp = allSmiles[0].createdAt;
-    }
-
-    return allSmiles;
-  } catch (err) {
-    return Promise.reject(NEW_SMILES_ERROR, err);
+  if (typeof lastSmileTimestamp === 'undefined') {
+    return getAllSmiles();
   }
+
+  const newSmilesUrl = `${process.env.API_BASE_URL}/display/new-smiles/${lastSmileTimestamp}`;
+  return callSmileApi(newSmilesUrl);
 }
