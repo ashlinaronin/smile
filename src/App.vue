@@ -93,17 +93,16 @@ small {
   border-radius: 0;
   box-shadow: 0 3px 6px #666666;
   color: $black;
-  background: #ffb700;
+  background: #f7f706;
   padding: 10px 20px 10px 20px;
 
-
   &:hover {
-    background: #c43227;
-    background-image: linear-gradient(to bottom, #c43227, #d93476);
+    background: blue;
+    color: white;
   }
 
   &:disabled, &.is-disabled {
-    background: lighten(#c43227, 30%);
+    background: lighten(#ddd, 30%);
     pointer-events: none;
     cursor: not-allowed;
   }
