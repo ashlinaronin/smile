@@ -8,6 +8,9 @@
       </li>
     </ul>
     <router-link class="button" to="/">Start over</router-link>
+    <p>
+      <small>Smile icon by Icon Solid from the Noun Project</small>
+    </p>
   </div>
 </template>
 
