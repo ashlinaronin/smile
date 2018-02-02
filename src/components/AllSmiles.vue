@@ -51,7 +51,10 @@
       },
       async refreshSmiles() {
         const newSmiles = await getNewSmiles();
-        this.allSmiles.unshift(...newSmiles);
+
+        if (newSmiles.length > 0) {
+          this.allSmiles.unshift(...newSmiles);
+        }
       },
       startFetchInterval() {
         this.fetchIntervalId = setInterval(this.refreshSmiles, FETCH_INTERVAL_MS);
