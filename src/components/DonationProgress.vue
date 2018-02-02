@@ -2,7 +2,8 @@
   <div class="ui__progress-container">
     <div class="ui__progress">
       <div class="ui__progress-emoji">
-        {{ emojiProgressMessage }}
+        <img v-for="smile in smilesDonated" src="static/smile.svg">
+        <img v-for="placeholder in placeholders" src="static/smile-grey.svg">
       </div>
       <div class="ui__progress-text">
         <div>
@@ -25,15 +26,8 @@
       smilesDonated() {
         return this.$store.state.smilesDonated;
       },
-      emojiProgressMessage() {
-        const smileStringArray = new Array(MAX_DONATIONS);
-        smileStringArray.fill('⚪️');
-
-        for (let i = 0; i < this.smilesDonated; i += 1) {
-          smileStringArray[i] = '😀';
-        }
-
-        return smileStringArray.join('');
+      placeholders() {
+        return MAX_DONATIONS - this.smilesDonated;
       },
       textProgressMessage() {
         const smilePluralization = (this.smilesDonated === 1) ? 'smile' : 'smiles';
@@ -77,6 +71,10 @@
 
   .ui__progress-emoji {
     font-size: 48px;
+    img {
+      width: 60px;
+      padding: 4px;
+    }
   }
 
   .ui__progress-text {
