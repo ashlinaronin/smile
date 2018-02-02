@@ -34,6 +34,7 @@
       margin: auto auto;
       padding: 6px;
       height: 80px;
+      line-height: 80px;
 
       img {
         height: 100%;
