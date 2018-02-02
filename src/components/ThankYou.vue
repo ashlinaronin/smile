@@ -9,7 +9,11 @@
     </ul>
     <router-link class="button" to="/">Start over</router-link>
     <p>
-      <small>Smile icon by Icon Solid from the Noun Project</small>
+      <small>
+        Thanks to Deryn Isaac, Ian Burton, Andre Brown, Amy Chiao, Adam Shaylor, Craig Schommer and SkyBiometry.
+      </small>
+      <br />
+      <small>Smile icon by Icon Solid from the Noun Project.</small>
     </p>
   </div>
 </template>
