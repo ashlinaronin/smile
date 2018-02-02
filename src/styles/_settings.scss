@@ -9,10 +9,10 @@ $light-pink: #f1eaea;
 
 
 // Typography
-@import url('https://fonts.googleapis.com/css?family=Monofett|Sarala:700');
+@import url('https://fonts.googleapis.com/css?family=Barlow+Condensed:500');
 
-$header-font: 'Monofett', Verdana, sans-serif;
-$main-body-font: 'Sarala', Arial, sans-serif;
+$header-font: 'Barlow Condensed', Arial, sans-serif;
+$main-body-font: 'Barlow Condensed', Arial, sans-serif;
 $container-width: 460px;
 
 @mixin container() {
