@@ -145,7 +145,7 @@ export default {
       margin: 0 auto;
       video {
         width: 100%;
-        margin-top: 2vh;
+        height: $container-width; // probably shouldn't declare this absolutely, but it will work for the iPad minis in the installation
         object-fit: fill;
       }
     }
