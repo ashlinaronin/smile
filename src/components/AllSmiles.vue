@@ -24,7 +24,7 @@
   import { getAllSmiles, getNewSmiles } from 'services/display';
 
   const Velocity = window.Velocity;
-  const FETCH_INTERVAL_MS = 1000;
+  const FETCH_INTERVAL_MS = 5000;
 
   export default {
     name: 'all-smiles',
