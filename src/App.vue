@@ -33,6 +33,7 @@ body {
 
   &.presentation-mode {
     overflow: hidden;
+    background: black;
   }
 }
 
