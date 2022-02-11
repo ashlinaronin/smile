@@ -3,10 +3,11 @@ mongoose.Promise = global.Promise;
 const Donor = require('../models/Donor');
 const Donation = require('../models/Donation');
 const skyBiometryParser = require('./sky-biometry-parser');
+const config = require("../config");
 
 async function init() {
   try {
-    await mongoose.connect('mongodb://127.0.0.1/smile', { useMongoClient: true });
+    await mongoose.connect(`mongodb://${config.mongoBaseUrl}/smile`, { useMongoClient: true });
   }
   catch (err) {
     console.log('Error connecting to MongoDB', err);
